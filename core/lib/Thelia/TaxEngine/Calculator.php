@@ -68,6 +68,10 @@ class Calculator
         // we should apply a factor to all tax calculation, in order to dispatch discount tax on all
         // products in the cart.
 
+        if ((int)$cart->getDiscount() === 0) {
+            return new Calculator();
+        }
+
         // Get the cart total without the discount
         $cartTotal = $cart->getTaxedAmount($country, false, $state);
         // Remove the discount (disount icludes taxes)
@@ -257,11 +261,12 @@ class Calculator
 
             $taxAmount = $taxType->calculate($this->product, $taxedPrice);
 
-            if ($taxType->isDiscountFactorApplicable()) {
-                $taxAmount *= $this->applicableDiscountTaxFactor;
-            } elseif ($ignoreTaxWhereDiscountIsNotApplicable) {
-                continue;
-            }
+            // todo check if this is necessary
+//            if ($taxType->isDiscountFactorApplicable()) {
+//                $taxAmount *= $this->applicableDiscountTaxFactor;
+//            } elseif ($ignoreTaxWhereDiscountIsNotApplicable) {
+//                continue;
+//            }
 
             // We have to round the tax amout here (sum of rounded values methods) to prevent the small total amount
             // differences which may occur when rounding the sum of unrouded values.

@@ -8,6 +8,7 @@ use Thelia\Core\Event\Cart\CartDuplicationEvent;
 use Thelia\Core\Event\Cart\CartItemDuplicationItem;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Model\Base\Cart as BaseCart;
+use Thelia\TaxEngine\Calculator;
 
 class Cart extends BaseCart
 {
@@ -146,7 +147,7 @@ class Cart extends BaseCart
      * @return float|int|string
      * @throws \Propel\Runtime\Exception\PropelException
      */
-    public function getTotalAmount($withDiscount = true)
+    public function getTotalAmount($withDiscount = true, Country $country = null, State $state = null)
     {
         $total = 0;
 
@@ -163,7 +164,7 @@ class Cart extends BaseCart
             // if we want to return a correct value.
 
             // discount value is taxed see ISSUE #1476
-            $total -= $this->getDiscount();
+            $total -= $this->getDiscount(false, $country, $state);
 
             if ($total < 0) {
                 $total = 0;
@@ -184,7 +185,7 @@ class Cart extends BaseCart
      */
     public function getTotalVAT($taxCountry, $taxState = null, $withDiscount = false)
     {
-        return ($this->getTaxedAmount($taxCountry, true, $taxState, $withDiscount) - $this->getTotalAmount(true));
+        return ($this->getTaxedAmount($taxCountry, true, $taxState, $withDiscount) - $this->getTotalAmount(true, $taxCountry, $taxState));
     }
 
     /**
@@ -198,7 +199,7 @@ class Cart extends BaseCart
      */
     public function getTotalVATWithoutDiscount($taxCountry, $taxState = null, $withDiscount = false)
     {
-        return ($this->getTaxedAmount($taxCountry, true, $taxState, $withDiscount) - $this->getTotalAmount(true));
+        return ($this->getTaxedAmount($taxCountry, true, $taxState, $withDiscount) - $this->getTotalAmount(true, $taxCountry, $taxState));
     }
 
     /**
@@ -244,12 +245,17 @@ class Cart extends BaseCart
         return $this->getCartItems()->count() > 0;
     }
 
-    public function getDiscount($withTaxes = true)
+    public function getDiscount($withTaxes = true, Country $country = null, State $state = null)
     {
-        if ($withTaxes) {
+        if ($withTaxes || null === $country) {
             return parent::getDiscount();
-        } else {
-            // Apply the discount ratio
         }
+
+        $taxCalculator = Calculator::createFromCart($this, $country, $state);
+        $discountFactor = $taxCalculator->getApplicableDiscountTaxFactor();
+
+        return $this->getTotalAmount(false) *  $discountFactor;
+
+        // Apply the discount ratio
     }
 }

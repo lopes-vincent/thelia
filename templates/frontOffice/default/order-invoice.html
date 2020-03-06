@@ -206,6 +206,14 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>{intl l="Total remisé HT"}</th>
+                                    <td>
+                                        <div class="total-price">
+                                            <span class="price">{format_money number={{cart attr="total_price"} + {order attr="postage"}}}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>{intl l="Total remisé TTC"}</th>
                                     <td>
                                         <div class="total-price">
@@ -225,15 +233,6 @@
                                     </td>
                                 </tr>
                             {/if}
-
-                            <tr>
-                                <th>{intl l="Total taxes"}</th>
-                                <td>
-                                    <div>
-                                        <span class="price">{format_money number={{cart attr="total_tax_amount"} + {order attr="postage_tax"}}}</span>
-                                    </div>
-                                </td>
-                            </tr>
 
                             <tr>
                                 <th>{intl l="Total taxes"}</th>
