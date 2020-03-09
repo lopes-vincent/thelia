@@ -185,7 +185,7 @@ class Cart extends BaseCart
      */
     public function getTotalVAT($taxCountry, $taxState = null, $withDiscount = false)
     {
-        return ($this->getTaxedAmount($taxCountry, true, $taxState, $withDiscount) - $this->getTotalAmount(true, $taxCountry, $taxState));
+        return ($this->getTaxedAmount($taxCountry, true, $taxState) - $this->getTotalAmount(true, $taxCountry, $taxState));
     }
 
     /**
@@ -199,7 +199,7 @@ class Cart extends BaseCart
      */
     public function getTotalVATWithoutDiscount($taxCountry, $taxState = null, $withDiscount = false)
     {
-        return ($this->getTaxedAmount($taxCountry, true, $taxState, $withDiscount) - $this->getTotalAmount(true, $taxCountry, $taxState));
+        return ($this->getTaxedAmount($taxCountry, true, $taxState) - $this->getTotalAmount(true, $taxCountry, $taxState));
     }
 
     /**
@@ -252,9 +252,8 @@ class Cart extends BaseCart
         }
 
         $taxCalculator = Calculator::createFromCart($this, $country, $state);
-        $discountFactor = $taxCalculator->getApplicableDiscountTaxFactor();
 
-        return $this->getTotalAmount(false) *  $discountFactor;
+        return $taxCalculator->getUntaxedDiscount();
 
         // Apply the discount ratio
     }

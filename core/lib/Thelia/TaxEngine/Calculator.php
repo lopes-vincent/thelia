@@ -14,6 +14,7 @@ namespace Thelia\TaxEngine;
 
 use Thelia\Exception\TaxEngineException;
 use Thelia\Model\Cart;
+use Thelia\Model\CartItem;
 use Thelia\Model\Country;
 use Thelia\Model\OrderProductTax;
 use Thelia\Model\Product;
@@ -48,11 +49,15 @@ class Calculator
     /** @var float */
     protected $applicableDiscountTaxFactor;
 
-    public function __construct($applicableDiscountTaxFactor = 1.0)
+    /** @var float */
+    protected $untaxedDiscount;
+
+    public function __construct($applicableDiscountTaxFactor = 1.0, $untaxedDiscount = 0)
     {
         $this->taxRuleQuery = new TaxRuleQuery();
 
         $this->applicableDiscountTaxFactor = $applicableDiscountTaxFactor;
+        $this->untaxedDiscount = $untaxedDiscount;
     }
 
     /**
@@ -72,16 +77,30 @@ class Calculator
             return new Calculator();
         }
 
-        // Get the cart total without the discount
-        $cartTotal = $cart->getTaxedAmount($country, false, $state);
-        // Remove the discount (disount icludes taxes)
-        $discountedTotal = $cartTotal - $cart->getDiscount();
+        $cartItems = $cart->getCartItems();
+
+        $cartTaxFactors = [];
+        /** @var CartItem $cartItem */
+        foreach ($cartItems as $cartItem) {
+            $taxRulesCollection = TaxRuleQuery::create()->getTaxCalculatorCollection($cartItem->getProduct()->getTaxRule(), $country, $state);
+
+            $cartItemsTaxFactors = [];
+            foreach ($taxRulesCollection as $taxRule) {
+                /** @var BaseTaxType $taxType */
+                $taxType = $taxRule->getTypeInstance();
+                $cartItemsTaxFactors[] = 1 + $taxType->pricePercentRetriever();
+            }
+
+            $cartTaxFactors[] = array_sum($cartItemsTaxFactors) / count($cartItemsTaxFactors);
+        }
+
+        $cartTaxFactor = array_sum($cartTaxFactors) / count($cartTaxFactors);
 
         // Get the factor applicable to all tax calculation
-        $discountTaxFactor = 1 - $discountedTotal / $cartTotal;
+        $untaxedDiscount = (1 / $cartTaxFactor) * $cart->getDiscount();
 
         // Get the cart total with discount
-        return new Calculator($discountTaxFactor);
+        return new Calculator(1.0, $untaxedDiscount);
     }
 
     /**
@@ -90,6 +109,14 @@ class Calculator
     public function getApplicableDiscountTaxFactor()
     {
         return $this->applicableDiscountTaxFactor;
+    }
+
+    /**
+     * @return float
+     */
+    public function getUntaxedDiscount()
+    {
+        return $this->untaxedDiscount;
     }
 
     /**
@@ -260,7 +287,6 @@ class Calculator
             }
 
             $taxAmount = $taxType->calculate($this->product, $taxedPrice);
-
             // todo check if this is necessary
 //            if ($taxType->isDiscountFactorApplicable()) {
 //                $taxAmount *= $this->applicableDiscountTaxFactor;
@@ -317,7 +343,6 @@ class Calculator
         $untaxedPrice = $taxedPrice;
         $currentPosition = (int) $taxRule->getTaxRuleCountryPosition();
         $currentFixTax = 0;
-        $currentTaxFactor = 0;
 
         do {
             $position = (int) $taxRule->getTaxRuleCountryPosition();
@@ -327,26 +352,17 @@ class Calculator
 
             if ($currentPosition !== $position) {
                 $untaxedPrice -= $currentFixTax;
-                $untaxedPrice = $untaxedPrice / (1 + $currentTaxFactor);
                 $currentFixTax = 0;
-                $currentTaxFactor = 0;
                 $currentPosition = $position;
             }
 
             $fixedAmount = $taxType->fixAmountRetriever($this->product);
-            $ratioAmount = $taxType->pricePercentRetriever();
-
-            if ($taxType->isDiscountFactorApplicable()) {
-                $fixedAmount /= $this->applicableDiscountTaxFactor;
-                $ratioAmount /= $this->applicableDiscountTaxFactor;
-            }
 
             $currentFixTax += $fixedAmount;
-            $currentTaxFactor += $ratioAmount;
         } while ($taxRule = $this->taxRulesCollection->getPrevious());
 
         $untaxedPrice -= $currentFixTax;
-        $untaxedPrice = $untaxedPrice / (1 + $currentTaxFactor);
+        $untaxedPrice = $untaxedPrice - $this->untaxedDiscount;
 
         return $untaxedPrice;
     }
