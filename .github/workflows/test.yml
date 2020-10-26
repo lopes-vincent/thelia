@@ -22,19 +22,9 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
     - uses: actions/checkout@master
-    - name: Install Dependencies
+    - name: Install composer dependencies
       run: |
-        apt-get update
-        apt-get install -y git unzip
-        # Instal composer
-        php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-        php -r "if (hash_file('sha384', 'composer-setup.php') === 'a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-        php composer-setup.php --install-dir=/usr/local/bin --filename composer
-        php -r "unlink('composer-setup.php');"
-        # copy default php.ini
-        cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini 
-        # Install deps
-        composer install --no-progress --prefer-dist
+        composer install --no-scripts
     - name: Install Thelia
       run: |
         php Thelia thelia:install --db_host=mysql --db_username=root --db_name=thelia --db_password=thelia
