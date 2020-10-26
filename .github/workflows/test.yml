@@ -22,9 +22,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
     - uses: actions/checkout@master
-    - name: Install composer dependencies
-      run: |
-        composer install --no-scripts
+    - uses: php-actions/composer@v2
     - name: Install Thelia
       run: |
         php Thelia thelia:install --db_host=mysql --db_username=root --db_name=thelia --db_password=thelia
