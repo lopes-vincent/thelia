@@ -26,7 +26,7 @@ jobs:
     - name: Setup env
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php-versions }}
+        php-version: ${{ matrix.php_version }}
         extensions: gd, intl, pdo_mysql, zip
         ini-values: post_max_size=20M  
         tools: phpunit
