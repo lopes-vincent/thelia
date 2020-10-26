@@ -23,6 +23,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: php-actions/composer@v2
+    - name: Setup env
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: gd, intl, pdo_mysql, zip
+        ini-values: post_max_size=20M  
+        tools: phpunit
     - name: Install Thelia
       run: |
         php Thelia thelia:install --db_host=mysql --db_username=root --db_name=thelia --db_password=thelia
