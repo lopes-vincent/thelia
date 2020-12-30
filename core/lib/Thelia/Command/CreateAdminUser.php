@@ -90,6 +90,8 @@ class CreateAdminUser extends ContainerAwareCommand
                 "<info>User ".$admin->getLogin()." successfully created.</info>",
                 ""
             ));
+
+        return 1;
     }
 
     protected function enterData(
