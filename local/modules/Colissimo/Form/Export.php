@@ -61,7 +61,7 @@ class Export extends BaseForm
                     'constraints' => [
                         new NotBlank(),
                         new Callback(
-                            array("methods" => array(array($this, "verifyValue")))
+                            array($this, "verifyValue")
                         )
                     ],
                     'label' => Translator::getInstance()->trans(
