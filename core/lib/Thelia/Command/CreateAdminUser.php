@@ -91,7 +91,7 @@ class CreateAdminUser extends ContainerAwareCommand
                 ""
             ));
 
-        return 1;
+        return 0;
     }
 
     protected function enterData(
