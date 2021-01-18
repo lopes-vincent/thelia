@@ -64,7 +64,8 @@
         "symfony/lock": "5.1.*",
         "thelia/propel": "dev-thelia-2.5",
         "symfony/var-dumper": "^2.0|^3.0|^4.0",
-        "assetic/framework": "^2.0"
+        "assetic/framework": "^2.0",
+        "symfony/mime": "^5.2"
     },
     "require-dev": {
         "fzaninotto/faker": "1.5.*",
