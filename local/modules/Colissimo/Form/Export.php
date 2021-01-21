@@ -14,6 +14,9 @@ namespace Colissimo\Form;
 
 use Colissimo\Colissimo;
 use Colissimo\Model\ColissimoQuery;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -56,7 +59,7 @@ class Export extends BaseForm
         $this->formBuilder
             ->add(
                 'status_id',
-                'text',
+                TextType::class,
                 [
                     'constraints' => [
                         new NotBlank(),
@@ -80,7 +83,7 @@ class Export extends BaseForm
             $this->formBuilder
                 ->add(
                     "order_".$order->getId(),
-                    "checkbox",
+                    CheckboxType::class,
                     array(
                         'label'=>$order->getRef(),
                         'label_attr'=>array(
@@ -90,11 +93,11 @@ class Export extends BaseForm
                 )
                 ->add(
                     "order_nb_pkg_".$order->getId(),
-                    'number'
+                    NumberType::class
                 )
                 ->add(
                     "order_weight_".$order->getId(),
-                    'number'
+                    NumberType::class
                 );
         }
     }
