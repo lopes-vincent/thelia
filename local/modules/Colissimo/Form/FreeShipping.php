@@ -14,6 +14,7 @@ namespace Colissimo\Form;
 
 use Colissimo\Colissimo;
 use Colissimo\Model\Config\Base\ColissimoConfigValue;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
 
@@ -44,7 +45,7 @@ class FreeShipping extends BaseForm
         $this->formBuilder
         ->add(
             "freeshipping",
-            "checkbox",
+            CheckboxType::class,
             array(
                 "label" => Translator::getInstance()->trans("Activate free shipping: ", [], Colissimo::DOMAIN_NAME),
                 "value" => Colissimo::getConfigValue(ColissimoConfigValue::FREE_SHIPPING, false),

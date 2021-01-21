@@ -14,6 +14,7 @@ namespace Colissimo\Form;
 
 use Colissimo\Colissimo;
 use Colissimo\Model\Config\Base\ColissimoConfigValue;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
 
@@ -30,7 +31,7 @@ class Configuration extends BaseForm
         $this->formBuilder
             ->add(
                 "enabled",
-                "checkbox",
+                CheckboxType::class,
                 array(
                     "label" => "Enabled",
                     "label_attr" => [
