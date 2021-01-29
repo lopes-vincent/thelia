@@ -15,8 +15,8 @@ namespace Colissimo\EventListener;
 use Colissimo\Colissimo;
 use Colissimo\Model\Config\ColissimoConfigValue;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Thelia\Core\Event\Area\AreaDeleteEvent;
 use Thelia\Core\Event\TheliaEvents;
+use Thelia\Model\Event\AreaEvent;
 
 /**
  * Class AreaDeletedListener
@@ -26,12 +26,12 @@ use Thelia\Core\Event\TheliaEvents;
 class AreaDeletedListener implements EventSubscriberInterface
 {
     /**
-     * @param AreaDeleteEvent $event
+     * @param AreaEvent $event
      */
-    public function updateConfig(AreaDeleteEvent $event)
+    public function updateConfig(AreaEvent $event)
     {
         if (null !== $data = Colissimo::getConfigValue(ColissimoConfigValue::PRICES, null)) {
-            $areaId = $event->getAreaId();
+            $areaId = $event->getModel()->getId();
             $json_data = json_decode($data, true);
             unset($json_data[$areaId]);
 
