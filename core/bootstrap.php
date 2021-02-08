@@ -12,9 +12,9 @@
 
 // Check php version
 
-if (version_compare(phpversion(), "5.6", "<")) {
+if (version_compare(phpversion(), "7.2", "<")) {
     die(sprintf(
-        "Thelia needs at least php 5.6, but you are using php %s. Please upgrade before using Thelia.\n",
+        "Thelia needs at least php 7.2, but you are using php %s. Please upgrade before using Thelia.\n",
         phpversion()
     ));
 }
@@ -36,7 +36,7 @@ if (!defined('THELIA_LIB')) {
 }
 
 if (!defined('THELIA_VENDOR')) {
-    define('THELIA_VENDOR', THELIA_ROOT . 'core' . DS . 'vendor' . DS);
+    define('THELIA_VENDOR', THELIA_ROOT . 'vendor' . DS);
 }
 
 if (!defined('THELIA_LOCAL_DIR')) {

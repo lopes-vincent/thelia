@@ -77,7 +77,6 @@
     },
     "minimum-stability": "stable",
     "config": {
-        "vendor-dir": "core/vendor",
         "bin-dir": "bin"
     },
     "autoload": {
