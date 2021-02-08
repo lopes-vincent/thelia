@@ -56,11 +56,11 @@ if (!defined('THELIA_WEB_DIR')) {
 }
 
 if (!defined('THELIA_CACHE_DIR')) {
-    define('THELIA_CACHE_DIR', THELIA_ROOT . 'cache' . DS);
+    define('THELIA_CACHE_DIR', THELIA_ROOT . 'var' . DS . 'cache' . DS);
 }
 
 if (!defined('THELIA_LOG_DIR')) {
-    define('THELIA_LOG_DIR', THELIA_ROOT . 'log' . DS);
+    define('THELIA_LOG_DIR', THELIA_ROOT . 'var' . DS . 'log' . DS);
 }
 
 if (!defined('THELIA_TEMPLATE_DIR')) {
