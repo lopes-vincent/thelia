@@ -78,10 +78,10 @@
     },
     "scripts": {
         "cs-diff": [
-            "./vendor/bin/php-cs-fixer fix --dry-run --stop-on-violation --diff"
+            "./bin/php-cs-fixer fix --dry-run --stop-on-violation --diff"
         ],
         "cs": [
-            "./vendor/bin/php-cs-fixer fix"
+            "./bin/php-cs-fixer fix"
         ],
         "test-unit": [
             "./bin/phpunit --configuration phpunit.xml.dist --testsuit unit"
