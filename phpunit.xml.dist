@@ -22,9 +22,6 @@
         <testsuite name="functional">
             <directory>tests/Functional</directory>
         </testsuite>
-        <testsuite name="legacy">
-            <directory>tests/Legacy</directory>
-        </testsuite>
     </testsuites>
 
     <listeners>
