@@ -15,7 +15,6 @@ namespace Colissimo\Loop;
 use Colissimo\Model\ColissimoQuery;
 use Thelia\Core\Template\Loop\Argument\Argument;
 use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
-
 use Thelia\Core\Template\Loop\Order;
 
 /**

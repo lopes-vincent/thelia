@@ -12,11 +12,11 @@
 namespace Colissimo\Loop;
 
 use Colissimo\Colissimo;
-use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
-use Thelia\Core\Template\Element\BaseLoop;
-use Thelia\Core\Template\Element\LoopResultRow;
-use Thelia\Core\Template\Element\LoopResult;
 use Thelia\Core\Template\Element\ArraySearchLoopInterface;
+use Thelia\Core\Template\Element\BaseLoop;
+use Thelia\Core\Template\Element\LoopResult;
+use Thelia\Core\Template\Element\LoopResultRow;
+use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
 use Thelia\Core\Translation\Translator;
 
 /**
@@ -33,54 +33,50 @@ class CheckRightsLoop extends BaseLoop implements ArraySearchLoopInterface
 
     public function buildArray()
     {
-        $ret = array();
+        $ret = [];
         $dir = __DIR__."/../Config/";
         if (!is_readable($dir)) {
-
-            $ret[] = array(
+            $ret[] = [
                 "ERRMES"=>Translator::getInstance()->trans(
                     "Can't read Config directory",
                     [],
                     Colissimo::DOMAIN_NAME
                 ),
                 "ERRFILE"=>""
-            );
+            ];
         }
         if (!is_writable($dir)) {
-            $ret[] = array(
+            $ret[] = [
                 "ERRMES"=>Translator::getInstance()->trans(
                     "Can't write Config directory",
                     [],
                     Colissimo::DOMAIN_NAME
                 ),
                 "ERRFILE"=>""
-            );
-
+            ];
         }
         if ($handle = opendir($dir)) {
             while (false !== ($file = readdir($handle))) {
-                if (strlen($file) > 5 && substr($file, -5) === ".json") {
+                if (\strlen($file) > 5 && substr($file, -5) === ".json") {
                     if (!is_readable($dir.$file)) {
-
-                        $ret[] = array(
+                        $ret[] = [
                             "ERRMES"=>Translator::getInstance()->trans(
                                 "Can't read file",
                                 [],
                                 Colissimo::DOMAIN_NAME
                             ),
                             "ERRFILE"=>"Colissimo/Config/".$file
-                        );
+                        ];
                     }
                     if (!is_writable($dir.$file)) {
-                        $ret[] = array(
+                        $ret[] = [
                             "ERRMES"=>Translator::getInstance()->trans(
                                 "Can't write file",
                                 [],
                                 Colissimo::DOMAIN_NAME
                             ),
                                 "ERRFILE"=>"Colissimo/Config/".$file
-                        );
-
+                        ];
                     }
                 }
             }

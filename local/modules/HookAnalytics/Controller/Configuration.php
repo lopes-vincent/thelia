@@ -18,26 +18,23 @@ use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Log\Tlog;
 use Thelia\Model\ConfigQuery;
 
-
 /**
  * Class Configuration
  * @package HookSocial\Controller
  * @author Julien Chanséaume <jchanseaume@openstudio.fr>
  */
 class Configuration extends BaseAdminController {
-
     public function saveAction()
     {
-
-        if (null !== $response = $this->checkAuth(array(AdminResources::MODULE), array('hookanalytics'), AccessManager::UPDATE)) {
+        if (null !== $response = $this->checkAuth([AdminResources::MODULE], ['hookanalytics'], AccessManager::UPDATE)) {
             return $response;
         }
 
         $form = new \HookAnalytics\Form\Configuration($this->getRequest());
-        $resp = array(
+        $resp = [
             "error" =>  0,
             "message" => ""
-        );
+        ];
         $response=null;
 
         try {
@@ -45,7 +42,6 @@ class Configuration extends BaseAdminController {
             $data = $vform->getData();
 
             ConfigQuery::write("hookanalytics_trackingcode", $data["trackingcode"], false, true);
-
         } catch (\Exception $e) {
             $resp["error"] = 1;
             $resp["message"] = $e->getMessage();
@@ -53,5 +49,4 @@ class Configuration extends BaseAdminController {
 
         return JsonResponse::create($resp);
     }
-
 } 

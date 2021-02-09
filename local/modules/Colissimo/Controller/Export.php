@@ -13,6 +13,7 @@
 namespace Colissimo\Controller;
 
 use Colissimo\Colissimo;
+use Colissimo\Form\Export as FormExport;
 use Colissimo\Model\ColissimoQuery;
 use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Core\Event\Order\OrderEvent;
@@ -20,7 +21,6 @@ use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\HttpFoundation\Response;
 use Thelia\Core\Security\AccessManager;
 use Thelia\Core\Security\Resource\AdminResources;
-use Colissimo\Form\Export as FormExport;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\Exception\FormValidationException;
 use Thelia\Model\ConfigQuery;
@@ -40,7 +40,7 @@ class Export extends BaseAdminController
 
     public function exportAction()
     {
-        if (null !== $response = $this->checkAuth(array(AdminResources::MODULE), array('Colissimo'), AccessManager::UPDATE)) {
+        if (null !== $response = $this->checkAuth([AdminResources::MODULE], ['Colissimo'], AccessManager::UPDATE)) {
             return $response;
         }
 
@@ -63,11 +63,9 @@ class Export extends BaseAdminController
 
             /** @var $order \Thelia\Model\Order */
             foreach ($orders as $order) {
-
                 $value = $exportForm->get('order_'.$order->getId())->getData();
 
                 if ($value) {
-
                     // Get order information
                     $customer = $order->getCustomer();
                     $locale = $order->getLang()->getLocale();
@@ -111,7 +109,6 @@ class Export extends BaseAdminController
                         }
                     }
 
-
                     $export .=
                         "\"".$order->getRef()
                         ."\";\"".$address->getLastname()
@@ -140,13 +137,12 @@ class Export extends BaseAdminController
             return Response::create(
                 utf8_decode($export),
                 200,
-                array(
+                [
                     "Content-Encoding"=>"ISO-8889-1",
                     "Content-Type"=>"application/csv-tab-delimited-table",
                     "Content-disposition"=>"filename=export.csv"
-                )
+                ]
             );
-
         } catch (FormValidationException $e) {
             $this->setupFormErrorContext(
                 Translator::getInstance()->trans("colissimo expeditor export", [], Colissimo::DOMAIN_NAME),
@@ -157,9 +153,9 @@ class Export extends BaseAdminController
 
             return $this->render(
                 "module-configure",
-                array(
+                [
                     "module_code" => "Colissimo",
-                )
+                ]
             );
         }
     }

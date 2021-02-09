@@ -30,7 +30,6 @@ use Thelia\Form\BaseForm;
  */
 class Export extends BaseForm
 {
-
     /**
      *
      * in this function you add all the fields you need for your Form.
@@ -64,7 +63,7 @@ class Export extends BaseForm
                     'constraints' => [
                         new NotBlank(),
                         new Callback(
-                            array($this, "verifyValue")
+                            [$this, "verifyValue"]
                         )
                     ],
                     'label' => Translator::getInstance()->trans(
@@ -84,12 +83,12 @@ class Export extends BaseForm
                 ->add(
                     "order_".$order->getId(),
                     CheckboxType::class,
-                    array(
+                    [
                         'label'=>$order->getRef(),
-                        'label_attr'=>array(
+                        'label_attr'=>[
                             'for'=>'export_'.$order->getId()
-                        )
-                    )
+                        ]
+                    ]
                 )
                 ->add(
                     "order_nb_pkg_".$order->getId(),

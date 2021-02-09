@@ -25,14 +25,13 @@ use Thelia\Form\BaseForm;
  */
 class Configuration extends BaseForm
 {
-
     protected function buildForm()
     {
         $this->formBuilder
             ->add(
                 "enabled",
                 CheckboxType::class,
-                array(
+                [
                     "label" => "Enabled",
                     "label_attr" => [
                         "for" => "enabled",
@@ -43,10 +42,10 @@ class Configuration extends BaseForm
                         )
                     ],
                     "required" => false,
-                    "constraints" => array(
-                    ),
+                    "constraints" => [
+                    ],
                     "value" => Colissimo::getConfigValue(ColissimoConfigValue::ENABLED, 1),
-                )
+                ]
             );
     }
 

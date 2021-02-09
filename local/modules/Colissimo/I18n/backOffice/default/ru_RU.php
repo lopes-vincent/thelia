@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     '*If you choose this option, the exported orders would not be available on this page anymore' => '*Если вы выберите эту опцию, экспортированные заказы больше не будут доступны на этой странице',
     'Actions' => 'Действия',
     'An error occured' => 'Произошла ошибка',
@@ -35,4 +35,4 @@ return array(
     'There is currently not orders to export' => 'Сейчас нет заказов для экспорта',
     'Total taxed amount' => 'Итого',
     'Weight up to ... (kg)' => 'Вес до ... (кг)',
-);
+];

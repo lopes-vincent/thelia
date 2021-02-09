@@ -43,10 +43,10 @@ class ColissimoQuery
     {
         $status = OrderStatusQuery::create()
             ->filterByCode(
-                array(
+                [
                     OrderStatus::CODE_PAID,
                     OrderStatus::CODE_PROCESSING,
-                ),
+                ],
                 Criteria::IN
             )
             ->find()
@@ -55,9 +55,9 @@ class ColissimoQuery
         $query = OrderQuery::create()
             ->filterByDeliveryModuleId((new Colissimo())->getModuleModel()->getId())
             ->filterByStatusId(
-                array(
+                [
                     $status[OrderStatus::CODE_PAID]['Id'],
-                    $status[OrderStatus::CODE_PROCESSING]['Id']),
+                    $status[OrderStatus::CODE_PROCESSING]['Id']],
                 Criteria::IN
             );
 
