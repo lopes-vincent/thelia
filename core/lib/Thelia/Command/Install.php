@@ -129,7 +129,7 @@ class Install extends ContainerAwareCommand
             ""
         ));
 
-        return 0;
+        exit;
     }
 
     protected function manageSecret(Database $database)
@@ -149,9 +149,6 @@ class Install extends ContainerAwareCommand
         $output->writeln(array(
             "Checking some permissions"
         ));
-
-//        /** @var Translator $translator */
-//        $translator = $this->getContainer()->get('thelia.translator');
 
         $permissions = new CheckPermission(false);
         $isValid = $permissions->exec();
