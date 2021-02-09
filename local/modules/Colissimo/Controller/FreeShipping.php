@@ -37,16 +37,14 @@ class FreeShipping extends BaseAdminController
 
         $form = $this->createForm('colissimo.freeshipping.form');
 
-
         try {
             $validateForm = $this->validateForm($form);
             $data = $validateForm->getData();
 
             Colissimo::setConfigValue(ColissimoConfigValue::FREE_SHIPPING, (int) ($data["freeshipping"]));
             return $this->redirectToConfigurationPage();
-
         } catch (\Exception $e) {
-            $response = JsonResponse::create(array("error"=>$e->getMessage()), 500);
+            $response = JsonResponse::create(["error"=>$e->getMessage()], 500);
         }
 
         return $response;

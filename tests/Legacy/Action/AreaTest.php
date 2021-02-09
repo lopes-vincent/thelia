@@ -50,7 +50,6 @@ class AreaTest extends BaseAction
     }
 
     /**
-     * @param AreaModel $area
      * @depends testCreate
      * @return AreaModel
      */
@@ -72,7 +71,6 @@ class AreaTest extends BaseAction
     }
 
     /**
-     * @param AreaModel $area
      * @depends testUpdatePostage
      * @return AreaModel
      */
@@ -96,7 +94,6 @@ class AreaTest extends BaseAction
     }
 
     /**
-     * @param AreaModel $area
      * @depends testAddCountry
      * @return AreaModel
      */
@@ -129,7 +126,6 @@ class AreaTest extends BaseAction
     }
 
     /**
-     * @param AreaModel $area
      * @depends testRemoveCountry
      */
     public function testDelete(AreaModel $area)

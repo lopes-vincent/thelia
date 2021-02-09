@@ -48,9 +48,8 @@ class Colissimo extends AbstractDeliveryModuleWithState
         self::setConfigValue(ColissimoConfigValue::ENABLED, 1);
 
         $database = new Database($con);
-        $database->insertSql(null, array(__DIR__ . '/Config/thelia.sql'));
+        $database->insertSql(null, [__DIR__ . '/Config/thelia.sql']);
     }
-
 
     public function isValidDelivery(Country $country, State $state = null)
     {
@@ -88,7 +87,6 @@ class Colissimo extends AbstractDeliveryModuleWithState
      * @param $areaId
      * @param $weight
      *
-     * @return mixed
      * @throws \Thelia\Exception\OrderException
      */
     public static function getPostageAmount($areaId, $weight)
@@ -119,7 +117,7 @@ class Colissimo extends AbstractDeliveryModuleWithState
                 throw new DeliveryException(
                     Translator::getInstance()->trans(
                         "Colissimo delivery unavailable for this cart weight (%weight kg)",
-                        array("%weight" => $weight),
+                        ["%weight" => $weight],
                         self::DOMAIN_NAME
                     )
                 );
@@ -136,16 +134,13 @@ class Colissimo extends AbstractDeliveryModuleWithState
             }
         }
         return $postage;
-
     }
 
     /**
      *
      * calculate and return delivery price
      *
-     * @param Country $country
      * @param State $state
-     * @return mixed
      */
     public function getPostage(Country $country, State $state = null)
     {

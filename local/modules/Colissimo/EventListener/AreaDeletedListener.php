@@ -26,7 +26,6 @@ use Thelia\Model\Event\AreaEvent;
 class AreaDeletedListener implements EventSubscriberInterface
 {
     /**
-     * @param AreaEvent $event
      */
     public function updateConfig(AreaEvent $event)
     {

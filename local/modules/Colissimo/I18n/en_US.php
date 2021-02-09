@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'Activate free shipping: ' => 'Activate free shipping: ',
     'Can\'t read Config directory' => 'Can\'t read Config directory',
     'Can\'t read file' => 'Can\'t read file',
@@ -11,4 +11,4 @@ return array(
     'Modify status export after export' => 'Change orders status after export',
     'colissimo expeditor export' => 'Colissimo Expeditor export',
     'select a valid status' => 'Select a valid order status',
-);
+];

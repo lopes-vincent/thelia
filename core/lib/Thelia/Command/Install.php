@@ -78,7 +78,7 @@ class Install extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(array(
+        $output->writeln([
             '',
             'Welcome to Thelia install process',
             'You need information about your database configuration (host, username, password, database name, etc)',
@@ -86,17 +86,17 @@ class Install extends ContainerAwareCommand
             '<info>Caution : You are installing Thelia in cli mode, we verify some information, but this information are only available for the cli php sapi</info>',
             '<info>This informations can be different in your apache or cgi php.ini files</info>',
             ''
-        ));
+        ]);
 
         $this->checkPermission($output);
 
-        $connectionInfo = array(
+        $connectionInfo = [
             "host" => $input->getOption("db_host"),
             "dbName" => $input->getOption("db_name"),
             "username" => $input->getOption("db_username"),
             "password" => $input->getOption("db_password"),
             "port" => $input->getOption("db_port")
-        );
+        ];
 
         while (false === $connection = $this->tryConnection($connectionInfo, $output)) {
             $connectionInfo = $this->getConnectionInfo($input, $output);
@@ -106,28 +106,28 @@ class Install extends ContainerAwareCommand
 
         $database->createDatabase($connectionInfo["dbName"]);
 
-        $output->writeln(array(
+        $output->writeln([
             "",
             "<info>Creating Thelia database, please wait</info>",
             ""
-        ));
+        ]);
         $database->insertSql($connectionInfo["dbName"]);
         $this->manageSecret($database);
 
-        $output->writeln(array(
+        $output->writeln([
             "",
             "<info>Database created without errors</info>",
             "<info>Creating file configuration, please wait</info>",
             ""
-        ));
+        ]);
 
         $this->createConfigFile($connectionInfo);
 
-        $output->writeln(array(
+        $output->writeln([
             "",
             "<info>Config file created with success. Your thelia is installed</info>",
             ""
-        ));
+        ]);
 
         exit;
     }
@@ -142,13 +142,12 @@ class Install extends ContainerAwareCommand
     /**
      * Test if needed directories have write permission
      *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function checkPermission(OutputInterface $output)
     {
-        $output->writeln(array(
+        $output->writeln([
             "Checking some permissions"
-        ));
+        ]);
 
         $permissions = new CheckPermission(false);
         $isValid = $permissions->exec();
@@ -156,22 +155,22 @@ class Install extends ContainerAwareCommand
         foreach ($permissions->getValidationMessages() as $item => $data) {
             if ($data['status']) {
                 $output->writeln(
-                    array(
+                    [
                         sprintf(
                             "<info>%s ...</info> %s",
                             $data['text'],
                             "<info>Ok</info>"
                         )
-                    )
+                    ]
                 );
             } else {
-                $output->writeln(array(
+                $output->writeln([
                     sprintf(
                         "<error>%s </error>%s",
                         $data['text'],
                         sprintf("<error>%s</error>", $data["hint"])
                     )
-                ));
+                ]);
             }
         }
 
@@ -214,7 +213,6 @@ class Install extends ContainerAwareCommand
      * test database access
      *
      * @param $connectionInfo
-     * @param  OutputInterface $output
      * @return bool|\PDO
      */
     protected function tryConnection($connectionInfo, OutputInterface $output)
@@ -233,9 +231,9 @@ class Install extends ContainerAwareCommand
             );
             $connection->query('SET NAMES \'UTF8\'');
         } catch (\PDOException $e) {
-            $output->writeln(array(
+            $output->writeln([
                 "<error>Wrong connection information</error>"
-            ));
+            ]);
 
             return false;
         }
@@ -246,8 +244,6 @@ class Install extends ContainerAwareCommand
     /**
      * Ask to user all needed information
      *
-     * @param  InputInterface  $input
-     * @param  OutputInterface $output
      * @return array
      */
     protected function getConnectionInfo(InputInterface $input, OutputInterface $output)
@@ -255,7 +251,7 @@ class Install extends ContainerAwareCommand
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
 
-        $connectionInfo = array();
+        $connectionInfo = [];
 
         $connectionInfo['host'] = $this->enterData(
             $helper,

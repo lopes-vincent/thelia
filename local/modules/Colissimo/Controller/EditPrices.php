@@ -15,8 +15,8 @@ namespace Colissimo\Controller;
 use Colissimo\Colissimo;
 use Colissimo\Model\Config\ColissimoConfigValue;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Thelia\Model\AreaQuery;
 use Thelia\Controller\Admin\BaseAdminController;
+use Thelia\Model\AreaQuery;
 use Thelia\Tools\URL;
 
 /**
@@ -43,7 +43,6 @@ class EditPrices extends BaseAdminController
             $exists = AreaQuery::create()
                 ->findPK($area);
             if ($exists !== null) {
-
                 if (null !== $data = Colissimo::getConfigValue(ColissimoConfigValue::PRICES, null)) {
                     $json_data = json_decode(
                         $data,
@@ -63,7 +62,6 @@ class EditPrices extends BaseAdminController
                 ksort($json_data[$area]['slices']);
 
                 Colissimo::setConfigValue(ColissimoConfigValue::PRICES, json_encode($json_data));
-
             } else {
                 throw new \Exception("Area not found");
             }

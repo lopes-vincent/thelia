@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'Activate free shipping: ' => 'Активировать бесплатную доставку:',
     'Can\'t read Config directory' => 'Невозможно прочитать директорию Config',
     'Can\'t read file' => 'Невозможно прочитать файл',
@@ -12,4 +12,4 @@ return array(
     'Modify status export after export' => 'Изменить статус экспорта после экспорта',
     'colissimo expeditor export' => 'Colissimo экспорт экспедитора',
     'select a valid status' => 'Выберите правильный статус',
-);
+];

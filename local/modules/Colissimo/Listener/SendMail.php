@@ -24,7 +24,6 @@ use Thelia\Model\MessageQuery;
 use Thelia\Model\OrderStatus;
 use Thelia\Module\PaymentModuleInterface;
 
-
 /**
  * Class SendMail
  * @package Colissimo\Listener
@@ -32,7 +31,6 @@ use Thelia\Module\PaymentModuleInterface;
  */
 class SendMail implements EventSubscriberInterface
 {
-    
     protected $parser;
     
     protected $mailer;
@@ -97,8 +95,8 @@ class SendMail implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            TheliaEvents::ORDER_UPDATE_STATUS => array("updateStatus", 128)
-        );
+        return [
+            TheliaEvents::ORDER_UPDATE_STATUS => ["updateStatus", 128]
+        ];
     }
 }

@@ -105,7 +105,7 @@ class RequestListener implements EventSubscriberInterface
     public function jsonBody(RequestEvent $event)
     {
         $request = $event->getRequest();
-        if (!\count($request->request->all()) && \in_array($request->getMethod(), array('POST', 'PUT', 'PATCH', 'DELETE'))) {
+        if (!\count($request->request->all()) && \in_array($request->getMethod(), ['POST', 'PUT', 'PATCH', 'DELETE'])) {
             if ('json' == $request->getFormat($request->headers->get('Content-Type'))) {
                 $content = $request->getContent();
                 if (!empty($content)) {
@@ -119,7 +119,8 @@ class RequestListener implements EventSubscriberInterface
                         $event->stopPropagation();
 
                         return;
-                    } elseif (!\is_array($data)) {
+                    }
+                    if (!\is_array($data)) {
                         // This case happens for string like: "Foo", that json_decode returns as valid json
                         $data = [$data];
                     }
@@ -131,9 +132,6 @@ class RequestListener implements EventSubscriberInterface
     }
 
     /**
-     * @param Request $request
-     * @param Session $session
-     * @param EventDispatcherInterface $dispatcher
      */
     protected function getRememberMeCustomer(Request $request, Session $session, EventDispatcherInterface $dispatcher)
     {
@@ -221,7 +219,6 @@ class RequestListener implements EventSubscriberInterface
      *
      * If the value of _previous_url is "dont-save", the current referrer is not saved.
      *
-     * @param TerminateEvent $event
      */
     public function registerPreviousUrl(TerminateEvent  $event)
     {
