@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     '*If you choose this option, the exported orders would not be available on this page anymore' => '*If you choose this option, the exported orders would not be available on this page anymore',
     'Actions' => 'Actions',
     'An error occured' => 'An error occured',
@@ -33,4 +33,4 @@ return array(
     'Weight up to ... (kg)' => 'Weight up to ... (kg)',
     'Number of packages' => 'Number of packages',
     'Packages weight' => 'Packages weight'
-);
+];

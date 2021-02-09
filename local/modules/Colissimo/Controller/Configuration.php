@@ -47,11 +47,10 @@ class Configuration extends BaseAdminController
 
             Colissimo::setConfigValue(
                 ColissimoConfigValue::ENABLED,
-                is_bool($data["enabled"]) ? (int) ($data["enabled"]) : $data["enabled"]
+                \is_bool($data["enabled"]) ? (int) ($data["enabled"]) : $data["enabled"]
             );
 
             return $this->redirectToConfigurationPage();
-
         } catch (FormValidationException $e) {
             $error_message = $this->createStandardFormValidationErrorMessage($e);
         }

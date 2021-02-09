@@ -22,7 +22,6 @@ use Thelia\Model\ConfigQuery;
  * @author Julien Chanséaume <jchanseaume@openstudio.fr>
  */
 class Configuration extends BaseForm {
-
     protected function buildForm()
     {
         $form = $this->formBuilder;
@@ -31,15 +30,14 @@ class Configuration extends BaseForm {
         $form->add(
             "trackingcode",
             "text",
-            array(
+            [
                 'data'  => $value,
                 'label' => Translator::getInstance()->trans("Tracking Code"),
-                'label_attr' => array(
+                'label_attr' => [
                     'for' => "trackingcode"
-                ),
-            )
+                ],
+            ]
         );
-
     }
 
     /**
@@ -49,6 +47,4 @@ class Configuration extends BaseForm {
     {
         return "hookanalytics";
     }
-
-
 } 

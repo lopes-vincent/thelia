@@ -46,10 +46,10 @@ class FreeShipping extends BaseForm
         ->add(
             "freeshipping",
             CheckboxType::class,
-            array(
+            [
                 "label" => Translator::getInstance()->trans("Activate free shipping: ", [], Colissimo::DOMAIN_NAME),
                 "value" => Colissimo::getConfigValue(ColissimoConfigValue::FREE_SHIPPING, false),
-            )
+            ]
         );
     }
 
