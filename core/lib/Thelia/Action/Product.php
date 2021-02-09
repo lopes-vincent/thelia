@@ -473,7 +473,6 @@ class Product extends BaseAction implements EventSubscriberInterface
             $content = new ProductAssociatedContent();
 
             $content
-                ->setDispatcher($this->eventDispatcher)
                 ->setProduct($event->getProduct())
                 ->setContentId($event->getContentId())
                 ->save()
@@ -490,7 +489,6 @@ class Product extends BaseAction implements EventSubscriberInterface
 
         if ($content !== null) {
             $content
-                ->setDispatcher($this->eventDispatcher)
                 ->delete()
             ;
         }
@@ -533,7 +531,6 @@ class Product extends BaseAction implements EventSubscriberInterface
             $accessory = new Accessory();
 
             $accessory
-                ->setDispatcher($this->eventDispatcher)
                 ->setProductId($event->getProduct()->getId())
                 ->setAccessory($event->getAccessoryId())
             ->save()
@@ -550,7 +547,6 @@ class Product extends BaseAction implements EventSubscriberInterface
 
         if ($accessory !== null) {
             $accessory
-                ->setDispatcher($this->eventDispatcher)
                 ->delete()
             ;
         }
@@ -568,23 +564,23 @@ class Product extends BaseAction implements EventSubscriberInterface
             // Check differences between current coobination and the next one, and clear obsoletes values.
             $nextTemplateId = $event->getTemplateId();
             $currentTemplateId = $product->getTemplateId();
-                
+
             // 1. Process product features.
-            
+
             $currentFeatures = FeatureTemplateQuery::create()
                 ->filterByTemplateId($currentTemplateId)
                 ->select([ FeatureTemplateTableMap::COL_FEATURE_ID ])
                 ->find($con);
-    
+
             $nextFeatures = FeatureTemplateQuery::create()
                 ->filterByTemplateId($nextTemplateId)
                 ->select([ FeatureTemplateTableMap::COL_FEATURE_ID ])
                 ->find($con);
-            
+
             // Find features values we shoud delete. To do this, we have to
             // find all features in $currentFeatures that are not present in $nextFeatures
             $featuresToDelete = array_diff($currentFeatures->getData(), $nextFeatures->getData());
-    
+
             // Delete obsolete features values
             foreach ($featuresToDelete as $featureId) {
                 $this->eventDispatcher->dispatch(
@@ -592,19 +588,19 @@ class Product extends BaseAction implements EventSubscriberInterface
                     TheliaEvents::PRODUCT_FEATURE_DELETE_VALUE
                 );
             }
-            
+
             // 2. Process product Attributes
-            
+
             $currentAttributes = AttributeTemplateQuery::create()
                 ->filterByTemplateId($currentTemplateId)
                 ->select([ AttributeTemplateTableMap::COL_ATTRIBUTE_ID ])
                 ->find($con);
-    
+
             $nextAttributes = AttributeTemplateQuery::create()
                 ->filterByTemplateId($nextTemplateId)
                 ->select([ AttributeTemplateTableMap::COL_ATTRIBUTE_ID ])
                 ->find($con);
-            
+
             // Find attributes values we shoud delete. To do this, we have to
             // find all attributes in $currentAttributes that are not present in $nextAttributes
             $attributesToDelete = array_diff($currentAttributes->getData(), $nextAttributes->getData());
@@ -617,7 +613,7 @@ class Product extends BaseAction implements EventSubscriberInterface
                 ->endUse()
                 ->select([ ProductSaleElementsTableMap::COL_ID ])
                 ->find();
-    
+
             // Delete obsolete PSEs
             foreach ($pseToDelete->getData() as $pseId) {
                 $this->eventDispatcher->dispatch(
@@ -651,7 +647,7 @@ class Product extends BaseAction implements EventSubscriberInterface
             throw $ex;
         }
     }
-    
+
     /**
      * Changes accessry position, selecting absolute ou relative change.
      *
@@ -701,7 +697,6 @@ class Product extends BaseAction implements EventSubscriberInterface
             $featureProduct = new FeatureProduct();
 
             $featureProduct
-                ->setDispatcher($this->eventDispatcher)
                 ->setProductId($event->getProductId())
                 ->setFeatureId($event->getFeatureId())
             ;
@@ -807,7 +802,7 @@ class Product extends BaseAction implements EventSubscriberInterface
             $model->getProductSaleElementsProductDocuments()->delete();
         }
     }
-    
+
     /**
      * When a feature is removed from a template, the products which are using this feature should be updated.
      *
@@ -820,7 +815,7 @@ class Product extends BaseAction implements EventSubscriberInterface
             ->filterByTemplateId($event->getTemplate()->getId())
             ->find()
         ;
-        
+
         foreach ($products as $product) {
             $dispatcher->dispatch(
                 new FeatureProductDeleteEvent($product->getId(), $event->getFeatureId()),
@@ -828,7 +823,7 @@ class Product extends BaseAction implements EventSubscriberInterface
             );
         }
     }
-    
+
     /**
      * When an attribute is removed from a template, the conbinations and PSE of products which are using this template
      * should be updated.
@@ -847,9 +842,9 @@ class Product extends BaseAction implements EventSubscriberInterface
             ->endUse()
             ->select([ ProductSaleElementsTableMap::COL_ID ])
             ->find();
-    
+
         $currencyId = CurrencyModel::getDefaultCurrency()->getId();
-        
+
         foreach ($pseToDelete->getData() as $pseId) {
             $dispatcher->dispatch(
                 new ProductSaleElementDeleteEvent(
@@ -921,7 +916,7 @@ class Product extends BaseAction implements EventSubscriberInterface
             
             TheliaEvents::TEMPLATE_DELETE_ATTRIBUTE         => ["deleteTemplateAttribute", 128],
             TheliaEvents::TEMPLATE_DELETE_FEATURE           => ["deleteTemplateFeature", 128],
-    
+
             // Those two have to be executed before
             TheliaEvents::IMAGE_DELETE                      => ["deleteImagePSEAssociations", 192],
             TheliaEvents::DOCUMENT_DELETE                   => ["deleteDocumentPSEAssociations", 192],
