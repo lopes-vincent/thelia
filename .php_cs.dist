@@ -27,6 +27,7 @@ return (new PhpCsFixer\Config)
                 'file that was distributed with this source code.'
             ])
         ],
+        'no_empty_comment' => true,
         'single_line_throw' => false,
         'declare_strict_types' => false,
         'array_syntax' => ['syntax' => 'short'],
