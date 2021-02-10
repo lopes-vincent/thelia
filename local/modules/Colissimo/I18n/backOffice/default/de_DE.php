@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Thelia package.
+ * http://www.thelia.net
+ *
+ * (c) OpenStudio <info@thelia.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 return [
     '*If you choose this option, the exported orders would not be available on this page anymore' => '*Wenn Sie diese Option auswählen, sind die exportierten Bestellungen auf dieser Seite nicht mehr verfügbar',
     'Actions' => 'Aktionen',
