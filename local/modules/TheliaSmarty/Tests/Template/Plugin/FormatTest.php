@@ -64,9 +64,8 @@ class FormatTest extends SmartyPluginTestCase
 
     public function testFormatMoneyForceCurrency()
     {
-        /********************/
         /*** Test for EUR ***/
-        /********************/
+        
         $currency = CurrencyQuery::create()->findOneByCode('EUR');
 
         // new format_money method, thelia >= 2.3
@@ -85,9 +84,8 @@ class FormatTest extends SmartyPluginTestCase
 
         $this->assertEquals("10.00 " . $currency->getSymbol(), $data);
 
-        /********************/
         /*** Test for USD ***/
-        /********************/
+        
         $currency = CurrencyQuery::create()->findOneByCode('USD');
 
         // new format_money method, thelia >= 2.3
@@ -106,9 +104,8 @@ class FormatTest extends SmartyPluginTestCase
 
         $this->assertEquals($currency->getSymbol() . "10.00", $data);
 
-        /********************/
         /*** Test for GBP ***/
-        /********************/
+        
         $currency = CurrencyQuery::create()->findOneByCode('GBP');
 
         // new format_money method, thelia >= 2.3

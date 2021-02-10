@@ -23,8 +23,6 @@ use Thelia\Module\PaymentModuleInterface;
 
 class Module extends BaseModule
 {
-//
-
     use PositionManagementTrait;
 
     const ADMIN_INCLUDES_DIRECTORY_NAME = "AdminIncludes";
