@@ -158,7 +158,6 @@
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" />
         <xsd:attribute name="class" type="xsd:string" />
-        <xsd:attribute name="scope" type="xsd:string" />
         <xsd:attribute name="public" type="boolean" />
         <xsd:attribute name="synthetic" type="boolean" />
         <xsd:attribute name="abstract" type="boolean" />
@@ -179,7 +178,6 @@
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" />
         <xsd:attribute name="class" type="xsd:string" />
-        <xsd:attribute name="scope" type="xsd:string" />
         <xsd:attribute name="public" type="boolean" />
         <xsd:attribute name="synthetic" type="boolean" />
         <xsd:attribute name="abstract" type="boolean" />

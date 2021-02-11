@@ -235,8 +235,6 @@
             <argument type="service" id="base_http_kernel" />
         </service>
 
-        <service id="request" alias="Thelia\Core\HttpFoundation\Request" />
-
         <service id="Symfony\Component\HttpFoundation\RequestStack" class="Symfony\Component\HttpFoundation\RequestStack"/>
         <service id="request_stack" alias="Symfony\Component\HttpFoundation\RequestStack" public="true"/>
 

@@ -9,14 +9,14 @@
     </forms>
 
     <hooks>
-        <hook id="cheque.hook" class="Cheque\Hook\HookManager" scope="request">
+        <hook id="cheque.hook" class="Cheque\Hook\HookManager">
             <tag name="hook.event_listener" event="module.configuration" type="back" templates="render:module_configuration.html" />
             <tag name="hook.event_listener" event="order-placed.additional-payment-info" type="front" method="onAdditionalPaymentInfo" />
         </hook>
     </hooks>
 
     <services>
-        <service id="send.cheque.mail" class="Cheque\Listener\SendPaymentConfirmationEmail" scope="request">
+        <service id="send.cheque.mail" class="Cheque\Listener\SendPaymentConfirmationEmail">
             <argument type="service" id="mailer"/>
             <tag name="kernel.event_subscriber"/>
         </service>

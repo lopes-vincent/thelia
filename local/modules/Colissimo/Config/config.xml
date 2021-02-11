@@ -25,7 +25,7 @@
     </services>
 
     <services>
-        <service id="area.deleted.listener" class="Colissimo\EventListener\AreaDeletedListener" scope="request">
+        <service id="area.deleted.listener" class="Colissimo\EventListener\AreaDeletedListener">
             <tag name="kernel.event_subscriber"/>
             <argument type="service" id="request" />
         </service>

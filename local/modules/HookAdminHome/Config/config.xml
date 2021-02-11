@@ -9,7 +9,7 @@
     </forms>
 
     <hooks>
-        <hook id="hookadminhome.configuration.hook" class="HookAdminHome\Hook\HookAdminManager" scope="request">
+        <hook id="hookadminhome.configuration.hook" class="HookAdminHome\Hook\HookAdminManager">
             <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConfiguration" />
         </hook>
 

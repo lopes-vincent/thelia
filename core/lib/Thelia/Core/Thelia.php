@@ -155,18 +155,6 @@ class Thelia extends Kernel
         }
     }
 
-    /**
-     * Gets the container's base class.
-     *
-     * All names except Container must be fully qualified.
-     *
-     * @return string
-     */
-    protected function getContainerBaseClass()
-    {
-        return '\Thelia\Core\DependencyInjection\TheliaContainer';
-    }
-
     protected function initializeContainer()
     {
         // initialize Propel, building its cache if necessary
