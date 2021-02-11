@@ -1,14 +1,14 @@
 <?php
-/*************************************************************************************/
-/*      This file is part of the Thelia package.                                     */
-/*                                                                                   */
-/*      Copyright (c) OpenStudio                                                     */
-/*      email : dev@thelia.net                                                       */
-/*      web : http://www.thelia.net                                                  */
-/*                                                                                   */
-/*      For the full copyright and license information, please view the LICENSE.txt  */
-/*      file that was distributed with this source code.                             */
-/*************************************************************************************/
+
+/*
+ * This file is part of the Thelia package.
+ * http://www.thelia.net
+ *
+ * (c) OpenStudio <info@thelia.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Colissimo\Listener;
 
@@ -32,27 +32,27 @@ use Thelia\Module\PaymentModuleInterface;
 class SendMail implements EventSubscriberInterface
 {
     protected $parser;
-    
+
     protected $mailer;
-    
+
     public function __construct(ParserInterface $parser, MailerFactory $mailer)
     {
         $this->parser = $parser;
         $this->mailer = $mailer;
     }
-    
+
     public function updateStatus(OrderEvent $event)
     {
         $order = $event->getOrder();
         $colissimo = new Colissimo();
-        
+
         if ($order->isSent() && $order->getDeliveryModuleId() == $colissimo->getModuleModel()->getId()) {
             $contact_email = ConfigQuery::getStoreEmail();
-            
+
             if ($contact_email) {
                 $order = $event->getOrder();
                 $customer = $order->getCustomer();
-                
+
                 $this->mailer->sendEmailToCustomer(
                     'mail_colissimo',
                     $customer,
@@ -64,7 +64,7 @@ class SendMail implements EventSubscriberInterface
                         'package' => $order->getDeliveryRef()
                     ]
                 );
-                
+
                 Tlog::getInstance()->debug("Colissimo shipping message sent to customer ".$customer->getEmail());
             } else {
                 $customer = $order->getCustomer();
@@ -72,7 +72,7 @@ class SendMail implements EventSubscriberInterface
             }
         }
     }
-    
+
     /**
      * Returns an array of event names this subscriber wants to listen to.
      *
