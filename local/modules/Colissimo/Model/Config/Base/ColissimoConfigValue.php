@@ -19,7 +19,7 @@ namespace Colissimo\Model\Config\Base;
  */
 class ColissimoConfigValue
 {
-    const FREE_SHIPPING = "free_shipping";
-    const PRICES = "prices";
-    const ENABLED = "enabled";
+    public const FREE_SHIPPING = "free_shipping";
+    public const PRICES = "prices";
+    public const ENABLED = "enabled";
 }
