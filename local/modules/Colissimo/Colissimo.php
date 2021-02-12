@@ -29,9 +29,9 @@ class Colissimo extends AbstractDeliveryModuleWithState
 
     private static $prices = null;
 
-    const JSON_PRICE_RESOURCE = "/Config/prices.json";
+    public const JSON_PRICE_RESOURCE = "/Config/prices.json";
 
-    const DOMAIN_NAME = 'colissimo';
+    public const DOMAIN_NAME = 'colissimo';
 
     public static function getPrices()
     {

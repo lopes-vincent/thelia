@@ -35,8 +35,8 @@ use Thelia\Model\OrderStatusQuery;
  */
 class Export extends BaseAdminController
 {
-    const DEFAULT_PHONE = "0100000000";
-    const DEFAULT_CELLPHONE = "0600000000";
+    public const DEFAULT_PHONE = "0100000000";
+    public const DEFAULT_CELLPHONE = "0600000000";
 
     public function exportAction()
     {

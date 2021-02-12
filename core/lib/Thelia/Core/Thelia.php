@@ -62,7 +62,7 @@ use TheliaSmarty\Template\SmartyParser;
 
 class Thelia extends Kernel
 {
-    const THELIA_VERSION = '2.4.3';
+    public const THELIA_VERSION = '2.4.3';
 
     protected $propelSchemaLocator;
 
@@ -512,7 +512,7 @@ class Thelia extends Kernel
 
                 /** @var \DirectoryIterator $file */
                 foreach ($finder as $file) {
-                    list($locale, $format) = explode('.', $file->getBaseName(), 2);
+                    [$locale, $format] = explode('.', $file->getBaseName(), 2);
 
                     $translator->addMethodCall('addResource', [$format, (string) $file, $locale, $domain]);
                 }
