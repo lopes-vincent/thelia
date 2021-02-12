@@ -18,7 +18,6 @@ use Thelia\Core\Translation\Translator;
 use Thelia\Install\Database;
 use Thelia\Model\Country;
 use Thelia\Model\State;
-use Thelia\Module\AbstractDeliveryModule;
 use Thelia\Module\AbstractDeliveryModuleWithState;
 use Thelia\Module\Exception\DeliveryException;
 
@@ -29,7 +28,7 @@ class Colissimo extends AbstractDeliveryModuleWithState
 
     private static $prices = null;
 
-    public const JSON_PRICE_RESOURCE = "/Config/prices.json";
+    public const JSON_PRICE_RESOURCE = '/Config/prices.json';
 
     public const DOMAIN_NAME = 'colissimo';
 
@@ -47,7 +46,7 @@ class Colissimo extends AbstractDeliveryModuleWithState
         self::setConfigValue(ColissimoConfigValue::ENABLED, 1);
 
         $database = new Database($con);
-        $database->insertSql(null, [__DIR__ . '/Config/thelia.sql']);
+        $database->insertSql(null, [__DIR__.'/Config/thelia.sql']);
     }
 
     public function isValidDelivery(Country $country, State $state = null)
@@ -62,9 +61,9 @@ class Colissimo extends AbstractDeliveryModuleWithState
             $prices = self::getPrices();
 
             /* Check if Colissimo delivers the area */
-            if (isset($prices[$areaId]) && isset($prices[$areaId]["slices"])) {
+            if (isset($prices[$areaId]) && isset($prices[$areaId]['slices'])) {
                 // Yes ! Check if the cart weight is below slice limit
-                $areaPrices = $prices[$areaId]["slices"];
+                $areaPrices = $prices[$areaId]['slices'];
                 ksort($areaPrices);
 
                 /* Check cart weight is below the maximum weight */
@@ -96,17 +95,17 @@ class Colissimo extends AbstractDeliveryModuleWithState
             $prices = self::getPrices();
 
             /* check if Colissimo delivers the asked area */
-            if (!isset($prices[$areaId]) || !isset($prices[$areaId]["slices"])) {
+            if (!isset($prices[$areaId]) || !isset($prices[$areaId]['slices'])) {
                 throw new DeliveryException(
                     Translator::getInstance()->trans(
-                        "Colissimo delivery unavailable for the delivery country",
+                        'Colissimo delivery unavailable for the delivery country',
                         [],
                         self::DOMAIN_NAME
                     )
                 );
             }
 
-            $areaPrices = $prices[$areaId]["slices"];
+            $areaPrices = $prices[$areaId]['slices'];
             ksort($areaPrices);
 
             /* Check cart weight is below the maximum weight */
@@ -115,8 +114,8 @@ class Colissimo extends AbstractDeliveryModuleWithState
             if ($weight > $maxWeight) {
                 throw new DeliveryException(
                     Translator::getInstance()->trans(
-                        "Colissimo delivery unavailable for this cart weight (%weight kg)",
-                        ["%weight" => $weight],
+                        'Colissimo delivery unavailable for this cart weight (%weight kg)',
+                        ['%weight' => $weight],
                         self::DOMAIN_NAME
                     )
                 );
@@ -132,12 +131,12 @@ class Colissimo extends AbstractDeliveryModuleWithState
                 $postage = current($areaPrices);
             }
         }
+
         return $postage;
     }
 
     /**
-     *
-     * calculate and return delivery price
+     * calculate and return delivery price.
      *
      * @param State $state
      */
@@ -155,16 +154,16 @@ class Colissimo extends AbstractDeliveryModuleWithState
 
     public function update($currentVersion, $newVersion, ConnectionInterface $con = null)
     {
-        $uploadDir = __DIR__ . '/Config/prices.json';
+        $uploadDir = __DIR__.'/Config/prices.json';
 
         $database = new Database($con);
 
         $tableExists = $database->execute("SHOW TABLES LIKE 'colissimo_freeshipping'")->rowCount();
 
         if (Colissimo::getConfigValue(ColissimoConfigValue::FREE_SHIPPING, null) == null && $tableExists) {
-            $result = $database->execute('SELECT active FROM colissimo_freeshipping WHERE id=1')->fetch()["active"];
+            $result = $database->execute('SELECT active FROM colissimo_freeshipping WHERE id=1')->fetch()['active'];
             Colissimo::setConfigValue(ColissimoConfigValue::FREE_SHIPPING, $result);
-            $database->execute("DROP TABLE `colissimo_freeshipping`");
+            $database->execute('DROP TABLE `colissimo_freeshipping`');
         }
 
         if (is_readable($uploadDir) && Colissimo::getConfigValue(ColissimoConfigValue::PRICES, null) == null) {

@@ -13,13 +13,13 @@
 namespace Colissimo\Model\Config\Base;
 
 /**
- * Class Colissimo
- * @package Colissimo\Model\Config\Base
+ * Class Colissimo.
+ *
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
 class ColissimoConfigValue
 {
-    public const FREE_SHIPPING = "free_shipping";
-    public const PRICES = "prices";
-    public const ENABLED = "enabled";
+    public const FREE_SHIPPING = 'free_shipping';
+    public const PRICES = 'prices';
+    public const ENABLED = 'enabled';
 }

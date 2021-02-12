@@ -29,14 +29,14 @@ use Thelia\Model\CustomerTitleQuery;
 use Thelia\Model\OrderStatusQuery;
 
 /**
- * Class Export
- * @package Colissimo\Controller
+ * Class Export.
+ *
  * @author Manuel Raynaud <manu@raynaud.io>
  */
 class Export extends BaseAdminController
 {
-    public const DEFAULT_PHONE = "0100000000";
-    public const DEFAULT_CELLPHONE = "0600000000";
+    public const DEFAULT_PHONE = '0100000000';
+    public const DEFAULT_CELLPHONE = '0600000000';
 
     public function exportAction()
     {
@@ -44,7 +44,7 @@ class Export extends BaseAdminController
             return $response;
         }
 
-        $form  = new FormExport($this->getRequest());
+        $form = new FormExport($this->getRequest());
 
         try {
             $exportForm = $this->validateForm($form);
@@ -58,7 +58,7 @@ class Export extends BaseAdminController
             // Get Colissimo orders
             $orders = ColissimoQuery::getOrders()->find();
 
-            $export = "";
+            $export = '';
             $store_name = ConfigQuery::getStoreName();
 
             /** @var $order \Thelia\Model\Order */
@@ -79,7 +79,7 @@ class Export extends BaseAdminController
                     if ($weight == 0) {
                         /** @var \Thelia\Model\OrderProduct $product */
                         foreach ($order->getOrderProducts() as $product) {
-                            $weight += (double)$product->getWeight();
+                            $weight += (float) $product->getWeight();
                         }
                     }
 
@@ -87,7 +87,7 @@ class Export extends BaseAdminController
                      * Get user's phone & cellphone
                      * First get invoice address phone,
                      * If empty, try to get default address' phone.
-                     * If still empty, set default value
+                     * If still empty, set default value.
                      */
                     $phone = $address->getPhone();
                     if (empty($phone)) {
@@ -110,20 +110,20 @@ class Export extends BaseAdminController
                     }
 
                     $export .=
-                        "\"".$order->getRef()
-                        ."\";\"".$address->getLastname()
-                        ."\";\"".$address->getFirstname()
-                        ."\";\"".$address->getAddress1()
-                        ."\";\"".$address->getAddress2()
-                        ."\";\"".$address->getAddress3()
-                        ."\";\"".$address->getZipcode()
-                        ."\";\"".$address->getCity()
-                        ."\";\"".$country->getIsoalpha2()
-                        ."\";\"".$phone
-                        ."\";\"".$cellphone
-                        ."\";\"".$weight
-                        ."\";\"".$customer->getEmail()
-                        ."\";\"\";\"".$store_name
+                        '"'.$order->getRef()
+                        .'";"'.$address->getLastname()
+                        .'";"'.$address->getFirstname()
+                        .'";"'.$address->getAddress1()
+                        .'";"'.$address->getAddress2()
+                        .'";"'.$address->getAddress3()
+                        .'";"'.$address->getZipcode()
+                        .'";"'.$address->getCity()
+                        .'";"'.$country->getIsoalpha2()
+                        .'";"'.$phone
+                        .'";"'.$cellphone
+                        .'";"'.$weight
+                        .'";"'.$customer->getEmail()
+                        .'";"";"'.$store_name
                         ."\";\"DOM\";\r\n";
 
                     if ($status) {
@@ -138,23 +138,23 @@ class Export extends BaseAdminController
                 utf8_decode($export),
                 200,
                 [
-                    "Content-Encoding"=>"ISO-8889-1",
-                    "Content-Type"=>"application/csv-tab-delimited-table",
-                    "Content-disposition"=>"filename=export.csv"
+                    'Content-Encoding' => 'ISO-8889-1',
+                    'Content-Type' => 'application/csv-tab-delimited-table',
+                    'Content-disposition' => 'filename=export.csv',
                 ]
             );
         } catch (FormValidationException $e) {
             $this->setupFormErrorContext(
-                Translator::getInstance()->trans("colissimo expeditor export", [], Colissimo::DOMAIN_NAME),
+                Translator::getInstance()->trans('colissimo expeditor export', [], Colissimo::DOMAIN_NAME),
                 $e->getMessage(),
                 $form,
                 $e
             );
 
             return $this->render(
-                "module-configure",
+                'module-configure',
                 [
-                    "module_code" => "Colissimo",
+                    'module_code' => 'Colissimo',
                 ]
             );
         }

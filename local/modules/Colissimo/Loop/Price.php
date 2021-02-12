@@ -21,12 +21,10 @@ use Thelia\Core\Template\Loop\Argument\Argument;
 use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
 
 /**
- *
- * Price loop
- *
+ * Price loop.
  *
  * Class Price
- * @package Colissimo\Loop
+ *
  * @author Etienne Roudeix <eroudeix@openstudio.fr>
  */
 class Price extends BaseLoop implements ArraySearchLoopInterface
@@ -49,11 +47,11 @@ class Price extends BaseLoop implements ArraySearchLoopInterface
         $area = $this->getArea();
         $prices = Colissimo::getPrices();
 
-        if (!isset($prices[$area]) || !isset($prices[$area]["slices"])) {
+        if (!isset($prices[$area]) || !isset($prices[$area]['slices'])) {
             return [];
         }
 
-        $areaPrices = $prices[$area]["slices"];
+        $areaPrices = $prices[$area]['slices'];
         ksort($areaPrices);
 
         return $areaPrices;
@@ -63,11 +61,12 @@ class Price extends BaseLoop implements ArraySearchLoopInterface
     {
         foreach ($loopResult->getResultDataCollection() as $maxWeight => $price) {
             $loopResultRow = new LoopResultRow();
-            $loopResultRow->set("MAX_WEIGHT", $maxWeight)
-                ->set("PRICE", $price);
+            $loopResultRow->set('MAX_WEIGHT', $maxWeight)
+                ->set('PRICE', $price);
 
             $loopResult->addRow($loopResultRow);
         }
+
         return $loopResult;
     }
 }

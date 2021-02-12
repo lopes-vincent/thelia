@@ -11,19 +11,20 @@
  */
 
 namespace HookAnalytics\Controller;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Core\Security\AccessManager;
 use Thelia\Core\Security\Resource\AdminResources;
-use Thelia\Log\Tlog;
 use Thelia\Model\ConfigQuery;
 
 /**
- * Class Configuration
- * @package HookSocial\Controller
+ * Class Configuration.
+ *
  * @author Julien Chanséaume <jchanseaume@openstudio.fr>
  */
-class Configuration extends BaseAdminController {
+class Configuration extends BaseAdminController
+{
     public function saveAction()
     {
         if (null !== $response = $this->checkAuth([AdminResources::MODULE], ['hookanalytics'], AccessManager::UPDATE)) {
@@ -32,19 +33,19 @@ class Configuration extends BaseAdminController {
 
         $form = $this->createForm(\HookAnalytics\Form\Configuration::class);
         $resp = [
-            "error" =>  0,
-            "message" => ""
+            'error' => 0,
+            'message' => '',
         ];
-        $response=null;
+        $response = null;
 
         try {
             $vform = $this->validateForm($form);
             $data = $vform->getData();
 
-            ConfigQuery::write("hookanalytics_trackingcode", $data["trackingcode"], false, true);
+            ConfigQuery::write('hookanalytics_trackingcode', $data['trackingcode'], false, true);
         } catch (\Exception $e) {
-            $resp["error"] = 1;
-            $resp["message"] = $e->getMessage();
+            $resp['error'] = 1;
+            $resp['message'] = $e->getMessage();
         }
 
         return JsonResponse::create($resp);

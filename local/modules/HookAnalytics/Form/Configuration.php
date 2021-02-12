@@ -17,24 +17,25 @@ use Thelia\Form\BaseForm;
 use Thelia\Model\ConfigQuery;
 
 /**
- * Class Configuration
- * @package HookSocial\Form
+ * Class Configuration.
+ *
  * @author Julien Chanséaume <jchanseaume@openstudio.fr>
  */
-class Configuration extends BaseForm {
+class Configuration extends BaseForm
+{
     protected function buildForm()
     {
         $form = $this->formBuilder;
 
-        $value = ConfigQuery::read("hookanalytics_trackingcode", "");
+        $value = ConfigQuery::read('hookanalytics_trackingcode', '');
         $form->add(
-            "trackingcode",
-            "text",
+            'trackingcode',
+            'text',
             [
-                'data'  => $value,
-                'label' => Translator::getInstance()->trans("Tracking Code"),
+                'data' => $value,
+                'label' => Translator::getInstance()->trans('Tracking Code'),
                 'label_attr' => [
-                    'for' => "trackingcode"
+                    'for' => 'trackingcode',
                 ],
             ]
         );
@@ -45,6 +46,6 @@ class Configuration extends BaseForm {
      */
     public static function getName()
     {
-        return "hookanalytics";
+        return 'hookanalytics';
     }
 }

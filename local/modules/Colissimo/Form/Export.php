@@ -24,16 +24,15 @@ use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
 
 /**
- * Class Export
- * @package Colissimo\Form
+ * Class Export.
+ *
  * @author Manuel Raynaud <manu@raynaud.io>
  */
 class Export extends BaseForm
 {
     /**
-     *
      * in this function you add all the fields you need for your Form.
-     * Form this you have to call add method on $this->formBuilder attribute :
+     * Form this you have to call add method on $this->formBuilder attribute :.
      *
      * $this->formBuilder->add("name", "text")
      *   ->add("email", "email", array(
@@ -63,8 +62,8 @@ class Export extends BaseForm
                     'constraints' => [
                         new NotBlank(),
                         new Callback(
-                            [$this, "verifyValue"]
-                        )
+                            [$this, 'verifyValue']
+                        ),
                     ],
                     'label' => Translator::getInstance()->trans(
                         'Modify status export after export',
@@ -72,8 +71,8 @@ class Export extends BaseForm
                         Colissimo::DOMAIN_NAME
                     ),
                     'label_attr' => [
-                        'for' => 'status_id'
-                    ]
+                        'for' => 'status_id',
+                    ],
                 ]
             );
 
@@ -81,21 +80,21 @@ class Export extends BaseForm
         foreach ($orders as $order) {
             $this->formBuilder
                 ->add(
-                    "order_".$order->getId(),
+                    'order_'.$order->getId(),
                     CheckboxType::class,
                     [
-                        'label'=>$order->getRef(),
-                        'label_attr'=>[
-                            'for'=>'export_'.$order->getId()
-                        ]
+                        'label' => $order->getRef(),
+                        'label_attr' => [
+                            'for' => 'export_'.$order->getId(),
+                        ],
                     ]
                 )
                 ->add(
-                    "order_nb_pkg_".$order->getId(),
+                    'order_nb_pkg_'.$order->getId(),
                     NumberType::class
                 )
                 ->add(
-                    "order_weight_".$order->getId(),
+                    'order_weight_'.$order->getId(),
                     NumberType::class
                 );
         }
@@ -103,7 +102,7 @@ class Export extends BaseForm
 
     public function verifyValue($value, ExecutionContextInterface $context)
     {
-        if (!preg_match("#^nochange|processing|sent$#", $value)) {
+        if (!preg_match('#^nochange|processing|sent$#', $value)) {
             $context->addViolation(
                 Translator::getInstance()->trans(
                     'select a valid status',
@@ -119,6 +118,6 @@ class Export extends BaseForm
      */
     public static function getName()
     {
-        return "colissimo_export";
+        return 'colissimo_export';
     }
 }

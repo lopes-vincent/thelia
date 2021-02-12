@@ -22,8 +22,8 @@ use Thelia\Form\Exception\FormValidationException;
 use Thelia\Tools\URL;
 
 /**
- * Class Configuration
- * @package Colissimo\Controller
+ * Class Configuration.
+ *
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
 class Configuration extends BaseAdminController
@@ -47,7 +47,7 @@ class Configuration extends BaseAdminController
 
             Colissimo::setConfigValue(
                 ColissimoConfigValue::ENABLED,
-                \is_bool($data["enabled"]) ? (int) ($data["enabled"]) : $data["enabled"]
+                \is_bool($data['enabled']) ? (int) ($data['enabled']) : $data['enabled']
             );
 
             return $this->redirectToConfigurationPage();
@@ -61,13 +61,14 @@ class Configuration extends BaseAdminController
                 $error_message,
                 $form
             );
-            $response = $this->render("module-configure", ['module_code' => 'Colissimo']);
+            $response = $this->render('module-configure', ['module_code' => 'Colissimo']);
         }
+
         return $response;
     }
 
     /**
-     * Redirect to the configuration page
+     * Redirect to the configuration page.
      */
     protected function redirectToConfigurationPage()
     {

@@ -20,13 +20,10 @@ use Thelia\Core\Template\ParserInterface;
 use Thelia\Log\Tlog;
 use Thelia\Mailer\MailerFactory;
 use Thelia\Model\ConfigQuery;
-use Thelia\Model\MessageQuery;
-use Thelia\Model\OrderStatus;
-use Thelia\Module\PaymentModuleInterface;
 
 /**
- * Class SendMail
- * @package Colissimo\Listener
+ * Class SendMail.
+ *
  * @author Manuel Raynaud <manu@raynaud.io>
  */
 class SendMail implements EventSubscriberInterface
@@ -61,14 +58,14 @@ class SendMail implements EventSubscriberInterface
                         'order_ref' => $order->getRef(),
                         'order_date' => $order->getCreatedAt(),
                         'update_date' => $order->getUpdatedAt(),
-                        'package' => $order->getDeliveryRef()
+                        'package' => $order->getDeliveryRef(),
                     ]
                 );
 
-                Tlog::getInstance()->debug("Colissimo shipping message sent to customer ".$customer->getEmail());
+                Tlog::getInstance()->debug('Colissimo shipping message sent to customer '.$customer->getEmail());
             } else {
                 $customer = $order->getCustomer();
-                Tlog::getInstance()->debug("Colissimo shipping message no contact email customer_id", $customer->getId());
+                Tlog::getInstance()->debug('Colissimo shipping message no contact email customer_id', $customer->getId());
             }
         }
     }
@@ -96,7 +93,7 @@ class SendMail implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            TheliaEvents::ORDER_UPDATE_STATUS => ["updateStatus", 128]
+            TheliaEvents::ORDER_UPDATE_STATUS => ['updateStatus', 128],
         ];
     }
 }

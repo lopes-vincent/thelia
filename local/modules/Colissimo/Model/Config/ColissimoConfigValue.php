@@ -15,8 +15,8 @@ namespace Colissimo\Model\Config;
 use Colissimo\Model\Config\Base\ColissimoConfigValue as BaseColissimoConfigValue;
 
 /**
- * Class Colissimo
- * @package Colissimo\Model\Config
+ * Class Colissimo.
+ *
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
 class ColissimoConfigValue extends BaseColissimoConfigValue

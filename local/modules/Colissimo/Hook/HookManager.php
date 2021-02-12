@@ -16,8 +16,8 @@ use Thelia\Core\Event\Hook\HookRenderEvent;
 use Thelia\Core\Hook\BaseHook;
 
 /**
- * Class HookManager
- * @package Colissimo\Hook
+ * Class HookManager.
+ *
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
 class HookManager extends BaseHook
@@ -26,6 +26,6 @@ class HookManager extends BaseHook
     {
         $module_id = self::getModule()->getModuleId();
 
-        $event->add($this->render("module_configuration.html", ['module_id' => $module_id]));
+        $event->add($this->render('module_configuration.html', ['module_id' => $module_id]));
     }
 }

@@ -42,5 +42,5 @@ return [
     'Total taxed amount' => 'Total taxed amount',
     'Weight up to ... (kg)' => 'Weight up to ... (kg)',
     'Number of packages' => 'Number of packages',
-    'Packages weight' => 'Packages weight'
+    'Packages weight' => 'Packages weight',
 ];
