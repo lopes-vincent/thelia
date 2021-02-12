@@ -19,8 +19,8 @@ use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
 
 /**
- * Class Configuration
- * @package Colissimo\Form
+ * Class Configuration.
+ *
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
 class Configuration extends BaseForm
@@ -29,22 +29,22 @@ class Configuration extends BaseForm
     {
         $this->formBuilder
             ->add(
-                "enabled",
+                'enabled',
                 CheckboxType::class,
                 [
-                    "label" => "Enabled",
-                    "label_attr" => [
-                        "for" => "enabled",
-                        "help" => Translator::getInstance()->trans(
+                    'label' => 'Enabled',
+                    'label_attr' => [
+                        'for' => 'enabled',
+                        'help' => Translator::getInstance()->trans(
                             'Check if you want to activate Colissimo',
                             [],
                             Colissimo::DOMAIN_NAME
-                        )
+                        ),
                     ],
-                    "required" => false,
-                    "constraints" => [
+                    'required' => false,
+                    'constraints' => [
                     ],
-                    "value" => Colissimo::getConfigValue(ColissimoConfigValue::ENABLED, 1),
+                    'value' => Colissimo::getConfigValue(ColissimoConfigValue::ENABLED, 1),
                 ]
             );
     }
@@ -54,6 +54,6 @@ class Configuration extends BaseForm
      */
     public static function getName()
     {
-        return "colissimo_enable";
+        return 'colissimo_enable';
     }
 }

@@ -21,9 +21,8 @@ use Thelia\Form\BaseForm;
 class FreeShipping extends BaseForm
 {
     /**
-     *
      * in this function you add all the fields you need for your Form.
-     * Form this you have to call add method on $this->formBuilder attribute :
+     * Form this you have to call add method on $this->formBuilder attribute :.
      *
      * $this->formBuilder->add("name", "text")
      *   ->add("email", "email", array(
@@ -44,11 +43,11 @@ class FreeShipping extends BaseForm
     {
         $this->formBuilder
         ->add(
-            "freeshipping",
+            'freeshipping',
             CheckboxType::class,
             [
-                "label" => Translator::getInstance()->trans("Activate free shipping: ", [], Colissimo::DOMAIN_NAME),
-                "value" => Colissimo::getConfigValue(ColissimoConfigValue::FREE_SHIPPING, false),
+                'label' => Translator::getInstance()->trans('Activate free shipping: ', [], Colissimo::DOMAIN_NAME),
+                'value' => Colissimo::getConfigValue(ColissimoConfigValue::FREE_SHIPPING, false),
             ]
         );
     }
@@ -58,6 +57,6 @@ class FreeShipping extends BaseForm
      */
     public static function getName()
     {
-        return "colissimofreeshipping";
+        return 'colissimofreeshipping';
     }
 }

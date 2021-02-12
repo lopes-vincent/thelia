@@ -19,14 +19,12 @@ use Thelia\Core\Event\TheliaEvents;
 use Thelia\Model\Event\AreaEvent;
 
 /**
- * Class AreaDeletedListener
- * @package AreaDeletedListener\EventListener
+ * Class AreaDeletedListener.
+ *
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
 class AreaDeletedListener implements EventSubscriberInterface
 {
-    /**
-     */
     public function updateConfig(AreaEvent $event)
     {
         if (null !== $data = Colissimo::getConfigValue(ColissimoConfigValue::PRICES, null)) {
@@ -45,8 +43,8 @@ class AreaDeletedListener implements EventSubscriberInterface
     {
         return [
             TheliaEvents::AREA_DELETE => [
-                'updateConfig', 128
-            ]
+                'updateConfig', 128,
+            ],
         ];
     }
 }

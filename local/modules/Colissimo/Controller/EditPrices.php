@@ -20,8 +20,8 @@ use Thelia\Model\AreaQuery;
 use Thelia\Tools\URL;
 
 /**
- * Class EditPrices
- * @package Colissimo\Controller
+ * Class EditPrices.
+ *
  * @author Thelia <info@thelia.net>
  */
 class EditPrices extends BaseAdminController
@@ -35,7 +35,7 @@ class EditPrices extends BaseAdminController
         $weight = $post->get('weight');
         $price = $post->get('price');
 
-        if (preg_match("#^add|delete$#", $operation) &&
+        if (preg_match('#^add|delete$#', $operation) &&
             preg_match("#^\d+$#", $area) &&
             preg_match("#^\d+\.?\d*$#", $weight)
         ) {
@@ -49,31 +49,31 @@ class EditPrices extends BaseAdminController
                         true
                     );
                 }
-                if ((float) $weight > 0 && $operation == "add"
+                if ((float) $weight > 0 && $operation == 'add'
                   && preg_match("#\d+\.?\d*#", $price)) {
                     $json_data[$area]['slices'][$weight] = $price;
-                } elseif ($operation == "delete") {
+                } elseif ($operation == 'delete') {
                     if (isset($json_data[$area]['slices'][$weight])) {
                         unset($json_data[$area]['slices'][$weight]);
                     }
                 } else {
-                    throw new \Exception("Weight must be superior to 0");
+                    throw new \Exception('Weight must be superior to 0');
                 }
                 ksort($json_data[$area]['slices']);
 
                 Colissimo::setConfigValue(ColissimoConfigValue::PRICES, json_encode($json_data));
             } else {
-                throw new \Exception("Area not found");
+                throw new \Exception('Area not found');
             }
         } else {
-            throw new \ErrorException("Arguments are missing or invalid");
+            throw new \ErrorException('Arguments are missing or invalid');
         }
 
         return $this->redirectToConfigurationPage();
     }
 
     /**
-     * Redirect to the configuration page
+     * Redirect to the configuration page.
      */
     protected function redirectToConfigurationPage()
     {

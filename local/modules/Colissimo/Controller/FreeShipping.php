@@ -22,8 +22,8 @@ use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Tools\URL;
 
 /**
- * Class FreeShipping
- * @package Colissimo\Controller
+ * Class FreeShipping.
+ *
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
 class FreeShipping extends BaseAdminController
@@ -41,17 +41,18 @@ class FreeShipping extends BaseAdminController
             $validateForm = $this->validateForm($form);
             $data = $validateForm->getData();
 
-            Colissimo::setConfigValue(ColissimoConfigValue::FREE_SHIPPING, (int) ($data["freeshipping"]));
+            Colissimo::setConfigValue(ColissimoConfigValue::FREE_SHIPPING, (int) ($data['freeshipping']));
+
             return $this->redirectToConfigurationPage();
         } catch (\Exception $e) {
-            $response = JsonResponse::create(["error"=>$e->getMessage()], 500);
+            $response = JsonResponse::create(['error' => $e->getMessage()], 500);
         }
 
         return $response;
     }
 
     /**
-     * Redirect to the configuration page
+     * Redirect to the configuration page.
      */
     protected function redirectToConfigurationPage()
     {

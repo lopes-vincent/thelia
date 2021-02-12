@@ -19,8 +19,8 @@ use Thelia\Model\OrderStatus;
 use Thelia\Model\OrderStatusQuery;
 
 /**
- * Class ColissimoQuery
- * @package Colissimo\Model
+ * Class ColissimoQuery.
+ *
  * @author Manuel Raynaud <manu@raynaud.io>
  */
 class ColissimoQuery
@@ -39,14 +39,14 @@ class ColissimoQuery
                 Criteria::IN
             )
             ->find()
-            ->toArray("code");
+            ->toArray('code');
 
         $query = OrderQuery::create()
             ->filterByDeliveryModuleId((new Colissimo())->getModuleModel()->getId())
             ->filterByStatusId(
                 [
                     $status[OrderStatus::CODE_PAID]['Id'],
-                    $status[OrderStatus::CODE_PROCESSING]['Id']],
+                    $status[OrderStatus::CODE_PROCESSING]['Id'], ],
                 Criteria::IN
             );
 

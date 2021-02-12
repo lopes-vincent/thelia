@@ -18,16 +18,14 @@ use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
 use Thelia\Core\Template\Loop\Order;
 
 /**
- * Class NotSendLoop
- * @package Colissimo\Loop
+ * Class NotSendLoop.
+ *
  * @author Manuel Raynaud <manu@raynaud.io>
  */
 class NotSendLoop extends Order
 {
     /**
-     *
-     * define all args used in your loop
-     *
+     * define all args used in your loop.
      *
      * example :
      *
@@ -62,7 +60,7 @@ class NotSendLoop extends Order
     }
 
     /**
-     * this method returns a Propel ModelCriteria
+     * this method returns a Propel ModelCriteria.
      *
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria
      */

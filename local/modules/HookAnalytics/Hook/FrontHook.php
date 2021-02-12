@@ -17,15 +17,16 @@ use Thelia\Core\Hook\BaseHook;
 use Thelia\Model\ConfigQuery;
 
 /**
- * Class FrontHook
- * @package HookCurrency\Hook
+ * Class FrontHook.
+ *
  * @author Julien Chanséaume <jchanseaume@openstudio.fr>
  */
-class FrontHook extends BaseHook {
+class FrontHook extends BaseHook
+{
     public function onMainHeadBottom(HookRenderEvent $event)
     {
-        $value = trim(ConfigQuery::read("hookanalytics_trackingcode", ""));
-        if ("" != $value){
+        $value = trim(ConfigQuery::read('hookanalytics_trackingcode', ''));
+        if ('' != $value) {
             $event->add($value);
         }
     }
