@@ -116,7 +116,7 @@
         "psr-4": {
             "Thelia\\": "core/lib/Thelia",
             "Thelia\\Model\\": "var/cache/propel/model/Thelia/Model",
-            "TheliaMain\\": "cache/propel/database/TheliaMain"
+            "TheliaMain\\": "var/cache/propel/database/TheliaMain"
         },
         "psr-0": {
             "": "local/modules/"

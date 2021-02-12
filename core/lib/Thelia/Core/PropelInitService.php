@@ -447,7 +447,7 @@ class PropelInitService
                 $cacheRefresh = true;
             }
 
-            $this->registerPropelModelLoader();
+            // $this->registerPropelModelLoader();
 
             $theliaDatabaseConnection->setAttribute(ConnectionWrapper::PROPEL_ATTR_CACHE_PREPARES, true);
 
