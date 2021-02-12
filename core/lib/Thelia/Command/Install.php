@@ -216,7 +216,7 @@ class Install extends ContainerAwareCommand
      */
     protected function tryConnection($connectionInfo, OutputInterface $output)
     {
-        if (\is_null($connectionInfo['dbName'])) {
+        if (null === $connectionInfo['dbName']) {
             return false;
         }
 
@@ -321,7 +321,7 @@ class Install extends ContainerAwareCommand
 
         $question->setValidator(function ($value) use (&$errorMessage, &$beEmpty) {
             if (trim($value) == '') {
-                if (\is_null($value) && !$beEmpty) {
+                if (null === $value && !$beEmpty) {
                     throw new \Exception($errorMessage);
                 }
             }

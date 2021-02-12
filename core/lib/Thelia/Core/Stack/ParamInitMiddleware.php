@@ -107,7 +107,7 @@ class ParamInitMiddleware implements HttpKernelInterface
                 $lang = LangQuery::create()->findOneByCode($requestedLangCodeOrLocale);
             }
 
-            if (\is_null($lang)) {
+            if (null === $lang) {
                 return Lang::getDefaultLanguage();
             }
 
