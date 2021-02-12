@@ -100,7 +100,7 @@ class Export extends BaseForm
         }
     }
 
-    public function verifyValue($value, ExecutionContextInterface $context)
+    public function verifyValue($value, ExecutionContextInterface $context): void
     {
         if (!preg_match('#^nochange|processing|sent$#', $value)) {
             $context->addViolation(

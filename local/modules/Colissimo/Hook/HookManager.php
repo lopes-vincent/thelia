@@ -22,7 +22,7 @@ use Thelia\Core\Hook\BaseHook;
  */
 class HookManager extends BaseHook
 {
-    public function onModuleConfiguration(HookRenderEvent $event)
+    public function onModuleConfiguration(HookRenderEvent $event): void
     {
         $module_id = self::getModule()->getModuleId();
 

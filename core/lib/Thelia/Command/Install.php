@@ -34,7 +34,7 @@ class Install extends ContainerAwareCommand
     /**
      * Configure the command.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('thelia:install')
@@ -75,7 +75,7 @@ class Install extends ContainerAwareCommand
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $output->writeln([
             '',
@@ -131,7 +131,7 @@ class Install extends ContainerAwareCommand
         exit;
     }
 
-    protected function manageSecret(Database $database)
+    protected function manageSecret(Database $database): void
     {
         $secret = TokenProvider::generateToken();
         $sql = "UPDATE `config` SET `value`=? WHERE `name`='form.secret'";
@@ -141,7 +141,7 @@ class Install extends ContainerAwareCommand
     /**
      * Test if needed directories have write permission.
      */
-    protected function checkPermission(OutputInterface $output)
+    protected function checkPermission(OutputInterface $output): void
     {
         $output->writeln([
             'Checking some permissions',
@@ -182,7 +182,7 @@ class Install extends ContainerAwareCommand
      *
      * @param array $connectionInfo
      */
-    protected function createConfigFile($connectionInfo)
+    protected function createConfigFile($connectionInfo): void
     {
         $fs = new Filesystem();
 

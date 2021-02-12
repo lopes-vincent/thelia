@@ -25,7 +25,7 @@ use Thelia\Form\BaseForm;
  */
 class Configuration extends BaseForm
 {
-    protected function buildForm()
+    protected function buildForm(): void
     {
         $this->formBuilder
             ->add(

@@ -23,7 +23,7 @@ use Thelia\Model\ConfigQuery;
  */
 class FrontHook extends BaseHook
 {
-    public function onMainHeadBottom(HookRenderEvent $event)
+    public function onMainHeadBottom(HookRenderEvent $event): void
     {
         $value = trim(ConfigQuery::read('hookanalytics_trackingcode', ''));
         if ('' != $value) {

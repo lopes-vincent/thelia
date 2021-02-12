@@ -25,7 +25,7 @@ use Thelia\Model\Event\AreaEvent;
  */
 class AreaDeletedListener implements EventSubscriberInterface
 {
-    public function updateConfig(AreaEvent $event)
+    public function updateConfig(AreaEvent $event): void
     {
         if (null !== $data = Colissimo::getConfigValue(ColissimoConfigValue::PRICES, null)) {
             $areaId = $event->getModel()->getId();
