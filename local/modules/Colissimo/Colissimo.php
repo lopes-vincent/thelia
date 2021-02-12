@@ -35,7 +35,7 @@ class Colissimo extends AbstractDeliveryModuleWithState
     public static function getPrices()
     {
         if (null === self::$prices) {
-            self::$prices = json_decode(Colissimo::getConfigValue(ColissimoConfigValue::PRICES, null), true);
+            self::$prices = json_decode(self::getConfigValue(ColissimoConfigValue::PRICES, null), true);
         }
 
         return self::$prices;
@@ -89,7 +89,7 @@ class Colissimo extends AbstractDeliveryModuleWithState
      */
     public static function getPostageAmount($areaId, $weight)
     {
-        $freeshipping = Colissimo::getConfigValue(ColissimoConfigValue::FREE_SHIPPING);
+        $freeshipping = self::getConfigValue(ColissimoConfigValue::FREE_SHIPPING);
         $postage = 0;
         if (!$freeshipping) {
             $prices = self::getPrices();
@@ -160,14 +160,14 @@ class Colissimo extends AbstractDeliveryModuleWithState
 
         $tableExists = $database->execute("SHOW TABLES LIKE 'colissimo_freeshipping'")->rowCount();
 
-        if (Colissimo::getConfigValue(ColissimoConfigValue::FREE_SHIPPING, null) == null && $tableExists) {
+        if (self::getConfigValue(ColissimoConfigValue::FREE_SHIPPING, null) == null && $tableExists) {
             $result = $database->execute('SELECT active FROM colissimo_freeshipping WHERE id=1')->fetch()['active'];
-            Colissimo::setConfigValue(ColissimoConfigValue::FREE_SHIPPING, $result);
+            self::setConfigValue(ColissimoConfigValue::FREE_SHIPPING, $result);
             $database->execute('DROP TABLE `colissimo_freeshipping`');
         }
 
-        if (is_readable($uploadDir) && Colissimo::getConfigValue(ColissimoConfigValue::PRICES, null) == null) {
-            Colissimo::setConfigValue(ColissimoConfigValue::PRICES, file_get_contents($uploadDir));
+        if (is_readable($uploadDir) && self::getConfigValue(ColissimoConfigValue::PRICES, null) == null) {
+            self::setConfigValue(ColissimoConfigValue::PRICES, file_get_contents($uploadDir));
         }
     }
 }
