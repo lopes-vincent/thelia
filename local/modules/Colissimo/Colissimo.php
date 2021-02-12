@@ -41,7 +41,7 @@ class Colissimo extends AbstractDeliveryModuleWithState
         return self::$prices;
     }
 
-    public function postActivation(ConnectionInterface $con = null)
+    public function postActivation(ConnectionInterface $con = null): void
     {
         self::setConfigValue(ColissimoConfigValue::ENABLED, 1);
 
@@ -152,7 +152,7 @@ class Colissimo extends AbstractDeliveryModuleWithState
         return $postage;
     }
 
-    public function update($currentVersion, $newVersion, ConnectionInterface $con = null)
+    public function update($currentVersion, $newVersion, ConnectionInterface $con = null): void
     {
         $uploadDir = __DIR__.'/Config/prices.json';
 
