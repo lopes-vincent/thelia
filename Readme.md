@@ -21,11 +21,11 @@ A repository containing all thelia modules is available at this address : https:
 Compatibility
 ------------
 
-|  | Thelia 2.1 | Thelia 2.2 | Thelia 2.3 | Thelia 2.4 |
-| ------------- |:-------------:| -----:| -----:| -----:|
-| PHP      | 5.4 5.5 5.6 | 5.4 5.5 5.6 | 5.5 5.6 7.0 7.1 | 5.6 7.0 7.1 7.2 7.3 |
-| MySQL    | 5.5 5.6 | 5.5 5.6 | 5.5 5.6 | 5.5 5.6 5.7 |
-| Symfony  | 2.3 | 2.3 | 2.8 | 2.8 |
+|  | Thelia 2.1 | Thelia 2.2 | Thelia 2.3 | Thelia 2.4 | Thelia 2.5 |
+| ------------- |:-------------:| -----:| -----:| -----:| -----:|
+| PHP      | 5.4 5.5 5.6 | 5.4 5.5 5.6 | 5.5 5.6 7.0 7.1 | 5.6 7.0 7.1 7.2 7.3 | 7.2 7.3 7.4 8.0 |
+| MySQL    | 5.5 5.6 | 5.5 5.6 | 5.5 5.6 | 5.5 5.6 5.7 | 5.5 5.6 5.7 |
+| Symfony  | 2.3 | 2.3 | 2.8 | 2.8 | 5.2 |
 
 Requirements
 ------------
@@ -147,7 +147,7 @@ You just have to follow all instructions.
 
 ### Docker and docker compose
 
-This repo contains all the configuration needed to run Thelia with docker and docker-compose.    
+This repo contains all the configuration needed to run Thelia with docker and docker-compose.
 Warning, this docker configuration is not ready for production.
 
 It requires obviously [docker](https://docker.com/) and [docker-compose](https://docs.docker.com/compose/)
@@ -162,21 +162,21 @@ docker-compose exec php-fpm php Thelia thelia:install
 
 By default if you haven't changed the `docker-compose.yml` you'll have to answer these questions like this
 
-``` 
+```
 Database host [default: localhost] : mariadb
-``` 
-``` 
+```
+```
 Database port [default: 3306] : 3306
 ```
-``` 
+```
 Database name (if database does not exist, Thelia will try to create it) : thelia
 ```
 
-``` 
+```
 Database username : thelia
 ```
 
-``` 
+```
 Database pasword : thelia
 ```
 
@@ -189,7 +189,7 @@ If you want add some sample data just execute this command (still in your contai
 docker-compose exec php-fpm php setup/import.php
 ```
 
-If you want to access your database from your computer (with DBeaver, Sequel Pro or anything else) by default the host is `localhost` and the port is `8086` 
+If you want to access your database from your computer (with DBeaver, Sequel Pro or anything else) by default the host is `localhost` and the port is `8086`
 
 Obviously you can modify all the configuration for your own case, for example the php version or add environment variable for the database configuration. Each time you modify the configuration, you have to rebuild it :
 
@@ -221,7 +221,7 @@ You can create a virtual host and choose the web folder for root directory.
 To run tests (phpunit required) :
 
 ``` bash
-$ phpunit
+$ composer test
 ```
 
 We still have a lot of work to achieve but enjoy this part.
