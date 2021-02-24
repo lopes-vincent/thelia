@@ -35,3 +35,4 @@ services:
       - .docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
     environment:
       PHP_IDE_CONFIG: "serverName=thelia"
+      XDEBUG_CONFIG: "idekey=PHPSTORM"
