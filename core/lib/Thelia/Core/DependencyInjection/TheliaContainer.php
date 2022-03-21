@@ -13,7 +13,7 @@
 namespace Thelia\Core\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * To override the methods of the symfony container.
@@ -24,18 +24,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
  *
  * @since 2.3
  */
-class TheliaContainer extends Container
+class TheliaContainer
 {
-    public function set(string $id, ?object $service): void
+    public function __construct(private ContainerInterface $container)
     {
-        if ($id === 'request'
-            && \PHP_SAPI === 'cli'
-        ) {
-            if (!isset($this->services['request_stack'])) {
-                $this->services['request_stack'] = new RequestStack();
-            }
-        }
+    }
 
-        parent::set($id, $service);
+    public function get($serviceName)
+    {
+        return $this->container->get($serviceName);
     }
 }

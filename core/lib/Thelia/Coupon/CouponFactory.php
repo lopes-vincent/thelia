@@ -14,6 +14,7 @@ namespace Thelia\Coupon;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Thelia\Condition\ConditionFactory;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use Thelia\Coupon\Type\CouponInterface;
 use Thelia\Exception\CouponExpiredException;
 use Thelia\Exception\CouponNotReleaseException;
@@ -43,7 +44,7 @@ class CouponFactory
      * Constructor.
      */
     public function __construct(
-        ContainerInterface $container,
+        TheliaContainer $container,
         FacadeInterface $facade,
         ConditionFactory $conditionFactory
     ) {

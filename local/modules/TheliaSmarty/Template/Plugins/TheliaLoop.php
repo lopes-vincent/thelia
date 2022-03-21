@@ -279,7 +279,7 @@ class TheliaLoop extends AbstractSmartyPlugin
      */
     public function theliaElseloop($params, $content, /* @noinspection PhpUnusedParameterInspection */ $template, &$repeat)
     {
-        //Block the smarty interpretation in the elseloop
+        // Block the smarty interpretation in the elseloop
         if ($content === null) {
             if (!$this->checkEmptyLoop($params)) {
                 $repeat = false;
@@ -460,6 +460,7 @@ class TheliaLoop extends AbstractSmartyPlugin
             );
         }
 
+
         $class = new \ReflectionClass($this->loopDefinition[$type]);
 
         if ($class->isSubclassOf("Thelia\Core\Template\Element\BaseLoop") === false) {
@@ -467,6 +468,7 @@ class TheliaLoop extends AbstractSmartyPlugin
                 $this->translator->trans("'%type' loop class should extends Thelia\Core\Template\Element\BaseLoop", ['%type' => $type])
             );
         }
+
 
         /** @var BaseLoop $loop */
         $loop = $class->newInstance(

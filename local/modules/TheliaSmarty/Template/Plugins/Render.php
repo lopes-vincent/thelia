@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Thelia\Core\Controller\ControllerResolver;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use TheliaSmarty\Template\AbstractSmartyPlugin;
 use TheliaSmarty\Template\Exception\SmartyPluginException;
 use TheliaSmarty\Template\SmartyPluginDescriptor;
@@ -45,12 +46,10 @@ class Render extends AbstractSmartyPlugin
     public function __construct(
         ControllerResolver $controllerResolver,
         RequestStack $requestStack,
-        ContainerInterface $container,
         ArgumentResolverInterface $argumentResolver
     ) {
         $this->controllerResolver = $controllerResolver;
         $this->requestStack = $requestStack;
-        $this->container = $container;
         $this->argumentResolver = $argumentResolver;
     }
 

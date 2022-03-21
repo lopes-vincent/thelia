@@ -30,13 +30,13 @@ class Response extends BaseResponse
      *
      * @see \Thelia\Core\HttpFoundation\Response::sendContent()
      */
-    public function sendContent(): void
+    public function sendContent(): static
     {
-        //ConfigQuery can be not already generated in cache so we must check it
+        // ConfigQuery can be not already generated in cache so we must check it
         if (class_exists('ConfigQuery')) {
             Tlog::getInstance()->write($this->content);
         }
 
-        parent::sendContent();
+        return parent::sendContent();
     }
 }

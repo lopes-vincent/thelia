@@ -21,6 +21,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use Thelia\Core\Event\Cache\CacheEvent;
 use Thelia\Core\Event\Module\ModuleDeleteEvent;
 use Thelia\Core\Event\Module\ModuleEvent;
@@ -50,7 +51,7 @@ class Module extends BaseAction implements EventSubscriberInterface
     /** @var ContainerInterface */
     protected $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(TheliaContainer $container)
     {
         $this->container = $container;
     }

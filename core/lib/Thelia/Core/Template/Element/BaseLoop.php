@@ -20,6 +20,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use Thelia\Core\Event\Loop\LoopExtendsArgDefinitionsEvent;
 use Thelia\Core\Event\Loop\LoopExtendsBuildArrayEvent;
 use Thelia\Core\Event\Loop\LoopExtendsBuildModelCriteriaEvent;
@@ -107,7 +108,7 @@ abstract class BaseLoop implements BaseLoopInterface
      * Create a new Loop.
      */
     public function __construct(
-        ContainerInterface $container,
+        TheliaContainer $container,
         RequestStack $requestStack,
         EventDispatcherInterface $eventDispatcher,
         SecurityContext $securityContext,

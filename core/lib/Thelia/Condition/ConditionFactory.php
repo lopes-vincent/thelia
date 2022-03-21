@@ -14,6 +14,7 @@ namespace Thelia\Condition;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Thelia\Condition\Implementation\ConditionInterface;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use Thelia\Coupon\FacadeInterface;
 
 /**
@@ -38,7 +39,7 @@ class ConditionFactory
      * @param ContainerInterface $container Service container
      */
     public function __construct(
-        ContainerInterface $container,
+        TheliaContainer $container,
         FacadeInterface $facade
     ) {
         $this->container = $container;

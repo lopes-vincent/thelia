@@ -12,7 +12,6 @@
 
 namespace Thelia\Core;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -20,7 +19,9 @@ use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use Thelia\Core\HttpFoundation\Response;
+use Thelia\Tools\URL;
 
 /**
  * @author Manuel Raynaud <manu@raynaud.io>
@@ -33,44 +34,13 @@ class TheliaHttpKernel extends HttpKernel
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
-        ContainerInterface $container,
+        TheliaContainer $container,
         ControllerResolverInterface $controllerResolver,
         RequestStack $requestStack,
-        ArgumentResolverInterface $argumentResolver
+        ArgumentResolverInterface $argumentResolver,
+        URL $urlManager
     ) {
         parent::__construct($dispatcher, $controllerResolver, $requestStack, $argumentResolver);
-        $container->get('thelia.url.manager');
         $this->container = $container;
-    }
-
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * Handles a Request to convert it to a Response.
-     *
-     * When $catch is true, the implementation must catch all exceptions
-     * and do its best to convert them to a Response instance.
-     *
-     * @param Request $request A Request instance
-     * @param int     $type    The type of the request
-     *                         (one of HttpKernelInterface::MASTER_REQUEST or HttpKernelInterface::SUB_REQUEST)
-     * @param bool    $catch   Whether to catch exceptions or not
-     *
-     * @return Response A Response instance
-     *
-     * @throws \Exception When an Exception occurs during processing
-     *
-     * @api
-     */
-    public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
-    {
-        $this->container->get('request.context')->fromRequest($request);
-
-        $response = parent::handle($request, $type, $catch);
-
-        return $response;
     }
 }

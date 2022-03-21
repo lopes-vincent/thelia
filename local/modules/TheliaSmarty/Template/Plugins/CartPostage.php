@@ -17,6 +17,7 @@ use Propel\Runtime\Exception\PropelException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use Thelia\Core\Event\Delivery\DeliveryPostageEvent;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\HttpFoundation\Request;
@@ -53,9 +54,6 @@ class CartPostage extends AbstractSmartyPlugin
     /** @var EventDispatcherInterface */
     protected $dispatcher;
 
-    /** @var ContainerInterface Service Container */
-    protected $container;
-
     /** @var int the id of country */
     protected $countryId;
 
@@ -74,15 +72,13 @@ class CartPostage extends AbstractSmartyPlugin
     /** @var bool indicate if customer can change the country */
     protected $isCustomizable = true;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(RequestStack $requestStack, EventDispatcherInterface $eventDispatcher)
     {
-        $this->container = $container;
-
-        $this->requestStack = $container->get('request_stack');
+        $this->requestStack = $requestStack;
 
         $this->request = $this->getCurrentRequest();
 
-        $this->dispatcher = $container->get('event_dispatcher');
+        $this->dispatcher = $eventDispatcher;
     }
 
     /**

@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use Thelia\Core\Event\Cache\CacheEvent;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\Event\Translation\TranslationEvent;
@@ -32,7 +33,7 @@ class Translation extends BaseAction implements EventSubscriberInterface
     /** @var ContainerInterface */
     protected $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(TheliaContainer $container)
     {
         $this->container = $container;
     }

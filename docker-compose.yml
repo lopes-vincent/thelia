@@ -3,7 +3,7 @@ version: "3.7"
 services:
   mariadb:
     image: mariadb:10.3
-    container_name: docker-thelia-mariadb
+    container_name: docker-thelia-6-mariadb
     working_dir: /application
     volumes:
       - .:/application
@@ -18,7 +18,7 @@ services:
 
   webserver:
     image: nginx:alpine
-    container_name: docker-thelia-webserver
+    container_name: docker-thelia-6-webserver
     working_dir: /application
     volumes:
       - .:/application
@@ -28,26 +28,10 @@ services:
 
   php-fpm:
     build: .docker/php-fpm
-    container_name: docker-thelia-php-fpm
+    container_name: docker-thelia-6-php-fpm
     working_dir: /application
     volumes:
       - .:/application
       - .docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
     environment:
-      - PHP_IDE_CONFIG
-      - XDEBUG_CONFIG
-      - TEMPLATE_NAME
-
-  encore:
-    build:
-      context: ./templates/frontOffice/${TEMPLATE_NAME}
-      target: thelia_encore
-    container_name: docker-thelia-encore
-    working_dir: /application/templates/frontOffice/${TEMPLATE_NAME}
-    environment:
-      BROWSERSYNC_PROXY: http://localhost:8081
-    volumes:
-      - ./templates/frontOffice/${TEMPLATE_NAME}:/application/templates/frontOffice/${TEMPLATE_NAME}:delegated
-      - ./templates/frontOffice/${TEMPLATE_NAME}/node_modules:/application/templates/frontOffice/${TEMPLATE_NAME}/node_modules
-    ports:
-      - 8081:8081
+      PHP_IDE_CONFIG: "serverName=thelia"

@@ -15,6 +15,7 @@ namespace TheliaSmarty\Template\Plugins;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Router;
+use Thelia\Core\DependencyInjection\TheliaContainer;
 use Thelia\Core\HttpFoundation\Request;
 use Thelia\Core\HttpFoundation\Session\Session;
 use Thelia\Model\ConfigQuery;
@@ -34,17 +35,13 @@ class UrlGenerator extends AbstractSmartyPlugin
     /** @var TokenProvider */
     protected $tokenProvider;
 
-    /** @var ContainerInterface */
-    private $container;
-
     /**
      * @param ContainerInterface $container needed to get all router
      */
-    public function __construct(RequestStack $requestStack, TokenProvider $tokenProvider, ContainerInterface $container)
+    public function __construct(RequestStack $requestStack, TokenProvider $tokenProvider)
     {
         $this->requestStack = $requestStack;
         $this->tokenProvider = $tokenProvider;
-        $this->container = $container;
     }
 
     /**

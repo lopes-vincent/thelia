@@ -483,7 +483,7 @@ class Tlog implements LoggerInterface
      */
     public function log($level, $message, array $context = [])
     {
-        if ($this->level > $level || \array_key_exists($level, $this->levels) === false) {
+        if (self::ERROR > $level || \array_key_exists($level, $this->levels) === false) {
             return;
         }
 
