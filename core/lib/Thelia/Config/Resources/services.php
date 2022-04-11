@@ -12,6 +12,7 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Thelia\Api\Bridge\Propel\CollectionDataProvider;
 use Thelia\Core\Service\ConfigCacheService;
 use Thelia\Log\Tlog;
 use Thelia\Model\ConfigQuery;
@@ -76,4 +77,9 @@ return function (ContainerConfigurator $configurator): void {
 
     $serviceConfigurator->get(ConfigCacheService::class)
         ->public();
+
+    $services = $configurator->services();
+    $services->set(CollectionDataProvider::class)
+        ->args([tagged_iterator('thelia.api.propel.query_extension.collection')])
+        ->tag("api_platform.collection_data_provider");
 };
