@@ -216,7 +216,7 @@ abstract class BaseLoop implements BaseLoopInterface
      * @param string $name      the method name (only getArgname is supported)
      * @param mixed  $arguments this parameter is ignored
      *
-     * @return mixed the argument value
+     * @return mixed|null the argument value
      *
      * @throws \InvalidArgumentException if the parameter is unknown or the method name is not supported
      */
