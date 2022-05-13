@@ -69,7 +69,7 @@ class Thelia extends Kernel
 {
     use MicroKernelTrait;
 
-    public const THELIA_VERSION = '2.5.0-alpha1';
+    public const THELIA_VERSION = '2.5.0-alpha2';
 
     /** @var SchemaLocator */
     protected $propelSchemaLocator;
@@ -88,6 +88,12 @@ class Thelia extends Kernel
         $loader = new ClassLoader();
 
         $loader->addPsr4('', THELIA_ROOT."var/cache/{$environment}/propel/model");
+        if (isset($_SERVER['ACTIVE_ADMIN_TEMPLATE'])) {
+            $loader->addPsr4('backOffice\\', THELIA_ROOT."templates/backOffice/{$_SERVER['ACTIVE_ADMIN_TEMPLATE']}/components");
+        }
+        if (isset($_SERVER['ACTIVE_FRONT_TEMPLATE'])) {
+            $loader->addPsr4('frontOffice\\', THELIA_ROOT."templates/frontOffice/{$_SERVER['ACTIVE_FRONT_TEMPLATE']}/components");
+        }
         $loader->addPsr4('TheliaMain\\', THELIA_ROOT."var/cache/{$environment}/propel/database/TheliaMain");
         $loader->register();
 
@@ -117,6 +123,7 @@ class Thelia extends Kernel
      */
     protected function configureContainer(ContainerConfigurator $container): void
     {
+        $container->parameters()->set('thelia_default_template', 'default');
         $container->import(__DIR__.'/../Config/Resources/*.yaml');
         $container->import(__DIR__.'/../Config/Resources/{packages}/*.yaml');
         $container->import(__DIR__.'/../Config/Resources/{packages}/'.$this->environment.'/*.yaml');
@@ -221,10 +228,8 @@ class Thelia extends Kernel
      * Gets the container's base class.
      *
      * All names except Container must be fully qualified.
-     *
-     * @return string
      */
-    protected function getContainerBaseClass()
+    protected function getContainerBaseClass(): string
     {
         return '\Thelia\Core\DependencyInjection\TheliaContainer';
     }
@@ -403,11 +408,9 @@ class Thelia extends Kernel
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Exception
      */
-    public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+    public function handle(Request $request, int $type = HttpKernelInterface::MAIN_REQUEST, bool $catch = true): \Symfony\Component\HttpFoundation\Response
     {
         if (!$this->booted) {
             $container = $this->container ?? $this->preBoot();
@@ -470,7 +473,7 @@ class Thelia extends Kernel
             /** @var Module $module */
             foreach ($modules as $module) {
                 try {
-                    //In case modules want add configuration
+                    // In case modules want add configuration
                     \call_user_func([$module->getFullNamespace(), 'loadConfiguration'], $container);
 
                     $definition = new Definition();
@@ -668,7 +671,7 @@ class Thelia extends Kernel
      *
      * @throws \Exception
      */
-    protected function buildContainer()
+    protected function buildContainer(): ContainerBuilder
     {
         $container = parent::buildContainer();
 
@@ -684,7 +687,7 @@ class Thelia extends Kernel
      *
      * @api
      */
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         if (\defined('THELIA_ROOT')) {
             return THELIA_CACHE_DIR.$this->environment;
@@ -700,7 +703,7 @@ class Thelia extends Kernel
      *
      * @api
      */
-    public function getLogDir()
+    public function getLogDir(): string
     {
         if (\defined('THELIA_ROOT')) {
             return THELIA_LOG_DIR;
@@ -714,11 +717,11 @@ class Thelia extends Kernel
      *
      * @return array An array of kernel parameters
      */
-    protected function getKernelParameters()
+    protected function getKernelParameters(): array
     {
         $parameters = parent::getKernelParameters();
 
-        //Todo replace this by real runtime env
+        // Todo replace this by real runtime env
         $parameters['kernel.runtime_environment'] = $this->environment;
 
         $parameters['thelia.root_dir'] = THELIA_ROOT;
