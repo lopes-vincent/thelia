@@ -53,7 +53,8 @@ use Thelia\Api\Bridge\Propel\Filter\SearchFilter;
     properties: [
         'ref',
         'productCategories.category.id',
-        'title' => 'word_start'
+        'title' => 'word_start',
+        'brand.id'
     ]
 )]
 #[ApiFilter(
@@ -81,6 +82,10 @@ class Product extends AbstractTranslatableResource
 
     #[Groups([self::GROUP_WRITE])]
     public bool $virtual;
+
+    #[Relation(targetResource: Brand::class)]
+    #[Groups([self::GROUP_READ_SINGLE])]
+    public Brand $brand;
 
     #[Relation(targetResource: ProductCategory::class)]
     #[Groups([self::GROUP_READ_SINGLE])]
@@ -137,6 +142,17 @@ class Product extends AbstractTranslatableResource
     {
         $this->virtual = $virtual;
 
+        return $this;
+    }
+
+    public function getBrand(): Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(Brand $brand): Product
+    {
+        $this->brand = $brand;
         return $this;
     }
 
